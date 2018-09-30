@@ -1,0 +1,200 @@
+/* 引入初始化样式*/
+@import './reset';
+
+/* 清除浮动 */
+.clear{
+    zoom:1;
+    &:after {
+        clear: both;
+        content: "";
+        height: 0;
+        visibility: hidden;
+        line-height: 0;
+    }
+}
+/* 文字溢出 */
+.overflow(@line) {
+    display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: @line;
+	overflow: hidden;
+}
+/* 文字一行溢出 */
+.oneline { 
+	.overflow(1);
+}
+/* 文字两行溢出 */
+.twoline {
+	.overflow(2);
+}
+/* 转换成flex容器 */
+.flex {
+	display:flex;
+}
+/* 竖直排列 */
+.flexv {
+	flex-direction: column;
+}
+/* 自动填充 */
+.flex1 {
+	flex: 1;
+}
+/* 自动换行 */
+.flex-wrap{
+    display:flex;
+	flex-wrap:wrap;
+}
+/* 水平居中 */
+.jus-c {
+    display:flex;
+	justify-content:center;
+}
+/* 水平两端对齐 */
+.jus-b{
+    display:flex;
+	justify-content: space-between;
+}
+/* 水平相等间距 */
+.jus-a {
+    display:flex;
+	justify-content:space-around;
+}
+/* 主轴终端对齐 */
+.jus-e {
+    display:flex;
+	justify-content: flex-end;
+}
+/* 竖直居中 */
+.ali-c{
+	display:flex;
+	align-items: center;
+}
+/* 水平垂直居中 */
+.flexc {
+    display:flex;
+	justify-content:center;
+	align-items: center;
+}
+.greybody{
+	background: #f4f4f4;
+}
+/* 图片宽高100% */
+.fill{
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+/* 图片宽度100%，高度自动 */
+.fill-auto{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/* 底部占位符 */ 
+.foot-seat {
+	height: 1rem;
+}
+
+/* vant的Toast提示宽度由内容撑开 */
+.van-toast--text {
+	min-width: auto;
+}
+/* animate.css中提取的tada动画 */
+@-webkit-keyframes tada {
+	from {
+	  -webkit-transform: scale3d(1, 1, 1);
+	  transform: scale3d(1, 1, 1);
+	}
+	10%, 20% {
+	  -webkit-transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+	  transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+	}
+  	30%, 50%, 70%, 90% {
+	  -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+	  transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+	}
+  	40%, 60%, 80% {
+	  -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+	  transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+	}
+	to {
+	  -webkit-transform: scale3d(1, 1, 1);
+	  transform: scale3d(1, 1, 1);
+	}
+} 
+@keyframes tada {
+	from {
+	  -webkit-transform: scale3d(1, 1, 1);
+	  transform: scale3d(1, 1, 1);
+	}
+	10%, 20% {
+	  -webkit-transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+	  transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+	}
+	30%, 50%, 70%, 90% {
+	  -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+	  transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+	}
+	40%, 60%, 80% {
+	  -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+	  transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+	}
+	to {
+	  -webkit-transform: scale3d(1, 1, 1);
+	  transform: scale3d(1, 1, 1);
+	}
+} 
+.tada {
+	-webkit-animation-name: tada;
+	animation-name: tada;
+}
+// 上边距20
+.mt2 {
+	margin-top: 0.2rem;
+}
+// 页面背景色
+.bg-grey{
+	background-color: #f8f8f8;
+}
+/* 页面公共背景色 */
+.pub-page-bg {
+	background: #f0f0f0;
+	min-height: 100vh;
+}
+
+/* 确认弹窗样式 */
+.confirm-box {
+	width: 75%;
+	border-radius: .16rem;
+	.van-dialog__message {
+		padding: .5rem .3rem;
+		text-align: center;
+		font-size: .36rem;
+		color: #000;
+		p {
+			margin: 0 auto 0.1rem;
+			text-align: left;
+			font-size: 0.28rem;
+			color: #999999;
+		}
+		.info {
+			width: 3.04rem;
+		}
+	}
+	.van-hairline--top {
+		&::after {
+			border: 0 solid #ddd;
+			border-top-width: 1px;
+		}
+		.van-button::before {
+			background-color: #f6f6f6;
+		}
+		.van-dialog__confirm, .van-dialog__confirm:active {
+			color: #ff5000;
+		}
+	}
+}
+.van-hairline--bottom::after {
+	border-color: #e5e5e5 !important;
+}

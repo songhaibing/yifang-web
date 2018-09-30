@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>邑方良田</title>
+    <meta name="Keywords" content="关键词"/>
+    <meta name="Description" content="网站描述"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="browsermode" content="application"/><!--强制坚屏显示(部分移动端浏览器的专有属性)-->
+    <meta name="full-screen" content="yes"/><!--全屏显示网页(部分移动端浏览器的专有属性)-->
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><!--禁止百度转码-->
+  <body>
+    <div id="app"></div>
+    <script>
+      const access_token = localStorage.getItem('access_token');
+      const isCode = window.location.href.indexOf('code=') !== -1;
+      // 如果未登陆过且没有拿到code值，则请求微信接口获取code
+      if (!access_token && !isCode) {
+        const current = window.location.href.split('/#')[0];
+        const target = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx31faa362702a0d17&redirect_uri=http://admin.101yi.cn&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
+        window.location.href = target;
+      }
+  </script> 
+    <script src="https://cdn.bootcss.com/vConsole/3.2.0/vconsole.min.js"></script>
+    <script>
+      // 初始化
+      var vConsole = new VConsole();
+    </script>
+  </body>
+</html>
