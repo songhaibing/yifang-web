@@ -22,7 +22,6 @@
             v-model="isShow"
             class="popup-radius"
         >
-            
             <div class="sign-box" v-if="isShow">
                 <!-- 右上角关闭按钮 -->
                 <div class="btn-off flexc" @click="offPupop">X</div>
@@ -82,7 +81,6 @@ export default {
             }else {
                 this.isShow = true;
             }
-            
         },
         // 关闭弹框
         offPupop () {

@@ -41,7 +41,7 @@
         </div>
         <div class="set"></div>
         <div class="del ali-c" @click="deletes" v-if="type == 2">删除收货地址</div>
-        <popop :isShow="isDelete" cancel="取消" sure="确定" :onCancel="noDelete" :onSure="onConfirm"></popop>
+        <popop :isShow="isDelete" cancel="取消" sure="确定删除" :onCancel="noDelete" :onSure="onConfirm"></popop>
         <!-- 这里点击编辑弹出框输入，和个人设置类似 -->
 
         <van-popup v-model="isAddress" position="bottom">
