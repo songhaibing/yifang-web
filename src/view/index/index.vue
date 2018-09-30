@@ -75,7 +75,7 @@ export default {
 		]),
         // 点击绑定手机弹框
         goBindPhone () {
-            let status = localStorage.getItem('isbind');
+            let isbind = localStorage.getItem('isbind');
             if(isbind == 1) {
                 this.$router.push('/user/user');
                 
