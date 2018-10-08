@@ -32,14 +32,17 @@
             </div>
         </main>
         <!-- 相关阅读 -->
-        <div class="relevant-article" v-if="this.$route.params.id != 265">
-            <div class="flexc article-xq">相关阅读</div>
-            <h2 class="title">{{relevant.title}}</h2>
-            <span class="author">{{relevant.author}}</span>
-            <div class="img"><img :src="relevant.img" alt="" class="fill"></div>
-            <p class="content chinese twoline" v-html="xqInfo"></p>  
-            <!-- <p class="content english van-hairline--bottom">{{relevant.en_intro}}</p>   -->
-        </div>    
+      <router-link :to="'/relatedRead/'+xqId"  class="relevant-article" v-if="this.$route.params.id != 265">
+        <div class="flexc article-xq">相关阅读</div>
+      </router-link>
+        <!--<div class="relevant-article" v-if="this.$route.params.id != 265">-->
+            <!--<div class="flexc article-xq">相关阅读</div>-->
+            <!--&lt;!&ndash;<h2 class="title">{{relevant.title}}</h2>&ndash;&gt;-->
+            <!--&lt;!&ndash;<span class="author">{{relevant.author}}</span>&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="img"><img :src="relevant.img" alt="" class="fill"></div>&ndash;&gt;-->
+            <!--&lt;!&ndash;<p class="content chinese twoline" v-html="xqInfo"></p>  &ndash;&gt;-->
+            <!--&lt;!&ndash; <p class="content english van-hairline&#45;&#45;bottom">{{relevant.en_intro}}</p>   &ndash;&gt;-->
+        <!--</div>    -->
         <!-- 产品信息     -->
         <router-link to="/store/store" class="goods-img"><img src="@/assets/goods-list.jpg" alt=""></router-link>
     </div>  
@@ -58,6 +61,7 @@ export default {
             host:'http://101yi.cn/data/attachment/item/',//图片路径前缀
             id:'',//文章id
             info:'',//文章信息
+            xqId:'',//相关阅读id
             swicth:{title:'切换成中文',type:1},//切换语言
         }
     },
@@ -76,6 +80,7 @@ export default {
                 this.detail = res.data.article;
                 this.relevant = res.data.xg;
                 this.xqInfo = res.data.xg.intro;
+              this.xqId = res.data.xg.id;
                 if (type == 1) {
                     this.swicth.title = '切换成英文';
                     this.swicth.type = 2;

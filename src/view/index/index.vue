@@ -25,16 +25,60 @@
             <div class="sign-box" v-if="isShow">
                 <!-- 右上角关闭按钮 -->
                 <div class="btn-off flexc" @click="offPupop">X</div>
-                <div class="tips">需要绑定您的手机以便提高账户的安全性</div>
+                <!--<div class="tips">需要绑定您的手机以便提高账户的安全性</div>-->
+              <div class="top flexc" @click="tabChange">
+                <div class="top-login" data-name="login" :class="{on:type==1}">登录</div>
+                <div class="top-register" data-name="register" :class="{on:type==2}">注册</div>
+              </div>
+              <div v-if="type==1">
+                <div class="bind-phone"><input type="text" placeholder="请输入账号/手机号" v-model="phone"></div>
+                <div class="bind-pw"><input type="text" placeholder="请输入密码" v-model="password"></div>
+                <!--<div class="code flex">-->
+                <!--<input type="text" placeholder="请输入验证码" v-model="sendCode">-->
+                <!--<div class="send-code flexc" @click="getcode">{{code}}</div>-->
+                <!--</div>-->
+                <div class="confirm flexc" @click="submitData">登录</div>
+                <div class="pw" @click="goChangePw">忘记密码?</div>
+              </div>
+              <div v-if="type==2">
                 <div class="bind-phone"><input type="text" placeholder="请输入11位手机号" v-model="phone"></div>
                 <div class="code flex">
-                    <input type="text" placeholder="请输入验证码" v-model="sendCode">
-                    <div class="send-code flexc" @click="getcode">{{code}}</div>
+                  <input type="text" placeholder="请输入验证码" v-model="sendCode">
+                  <div class="send-code flexc" @click="getcode">{{code}}</div>
                 </div>
-                <div class="confirm flexc" @click="submitData">确认</div>
+                <div class="bind-pw"><input type="text" placeholder="请输入密码" v-model="phone"></div>
+                <div class="bind-pw"><input type="text" placeholder="再次输入密码" v-model="phone"></div>
+                <div class="confirm flexc" @click="submitData">注册</div>
+              </div>
+
+              <div class="bottom-font">勾选代表把你同意《注册声明》《版权声明》</div>
             </div>
-           
-        </van-popup> 
+
+        </van-popup>
+      <!--重置密码弹框-->
+      <van-popup
+        v-model="showModel"
+        class="popup-radius"
+      >
+        <div class="set-box" v-if="showModel">
+          <!-- 右上角关闭按钮 -->
+          <div class="btn-off flexc" @click="shutDown">X</div>
+          <div class="tips">重置密码</div>
+          <!--<div class="top flexc" @click="tabChange">-->
+            <!--<div class="top-login" data-name="login" :class="{on:type==1}">登录</div>-->
+            <!--<div class="top-register" data-name="register" :class="{on:type==2}">注册</div>-->
+          <!--</div>-->
+            <div class="bind-phone"><input type="text" placeholder="请输入11位手机号" v-model="phone"></div>
+            <div class="code flex">
+              <input type="text" placeholder="请输入验证码" v-model="sendCode">
+              <div class="send-code flexc" @click="getcode">{{code}}</div>
+            </div>
+            <div class="bind-pw"><input type="text" placeholder="请输入新密码" v-model="phone"></div>
+          <div>8-16位数字，字母组合，区分大小写</div>
+            <div class="bind-pw"><input type="text" placeholder="请确认新密码" v-model="phone"></div>
+            <div class="confirm flexc" @click="submitData">确认</div>
+          </div>
+      </van-popup>
     </div>
 </template>
 
@@ -58,6 +102,8 @@ export default {
             isSubmitData: true,//是否提交
             host:'http://101yi.cn/',//域名前缀
             hosttwo:'http://101yi.cn/data/attachment/guang/',//域名前缀
+            type:1,
+            showModel:false
         }
     },
     created () {
@@ -86,6 +132,18 @@ export default {
         offPupop () {
             this.isShow = false;
         },
+      //tab切换
+      tabChange(e){
+          let name =e.target.dataset.name
+        switch (name) {
+          case 'login':
+            this.type=1
+                break;
+          case 'register':
+            this.type=2
+                break;
+        }
+      },
         // 获取验证码
         getcode () {
             if (!this.isCode) return;
@@ -165,7 +223,16 @@ export default {
                 this.isSubmitData = true;
             })
             
-        }
+        },
+      //修改密码
+      goChangePw () {
+         this.isShow=false
+          this.showModel=true
+      },
+      //关闭重置密码弹框
+      shutDown(){
+        this.showModel=false
+      }
     }
 }
 </script>
@@ -201,11 +268,11 @@ export default {
         position: relative;
         overflow: hidden;
         width: 8.56rem;
-        height: 7rem;
+        height: 11rem;
         margin: 0 auto;
         border-radius: .1rem;
         background-color: #fff;
-        padding: 1.2rem .8rem;
+        padding: .8rem .8rem;
         // 关闭按钮
         .btn-off {
             position: absolute;
@@ -216,10 +283,25 @@ export default {
             font-size: .5rem;
             color: #b1b1b1;
         }
+       /*.top {*/
+         /*padding: .2rem;*/
+       /*}*/
+       .top-login {
+         font-size: .4rem;
+       }
+       .on{
+         color: @main-cor;
+         border-bottom: 2px solid  @main-cor;
+         width: 1.5rem;
+         text-align: center;
+       }
+       .top-register {
+         font-size: .4rem;
+         margin-left: 2.1rem;
+       }
         // 提示文字
         .tips {
-            font-size: .32rem;
-            color: #747474;
+            font-size: 0.4rem;
             text-align: center;
         }
         // 绑定手机
@@ -229,7 +311,7 @@ export default {
             border: 1px solid #b1b1b1;
             border-radius: .1rem;
             padding: 0 .3rem;
-            margin-top: .28rem;
+            margin-top: 1.45rem;
             background:url(~@/assets/phone.png) no-repeat .3rem ;
             .bg-size(.28rem,.46rem);
             input {
@@ -239,6 +321,22 @@ export default {
                 font-size: .36rem;
             }
         }
+       .bind-pw {
+         width: 100%;
+         height: 1rem;
+         border: 1px solid #b1b1b1;
+         border-radius: .1rem;
+         padding: 0 .3rem;
+         margin-top: .15rem;
+         background:url(~@/assets/phone.png) no-repeat .3rem ;
+         .bg-size(.28rem,.46rem);
+         input {
+           width: 6rem;
+           height: .94rem;
+           margin-left: .5rem;
+           font-size: .36rem;
+         }
+       }
         .code {
             width: 100%;
             height: 1rem;
@@ -268,8 +366,134 @@ export default {
             background-color: @main-cor;
             font-size: .4rem;
             border-radius: .04rem;
-            margin-top: .28rem;
+            margin-top: .76rem;
         }
+       .pw {
+         margin-left: 5.5rem;
+         margin-top: .28rem;
+       }
+       .bottom-font{
+         margin-top: 0.3rem;
+         clear: both;
+         font-size:0.19rem ;
+         color: #818080;
+       }
      }
+
+// 重置密码弹框
+.set-box {
+  position: relative;
+  overflow: hidden;
+  width: 8.56rem;
+  height: 11rem;
+  margin: 0 auto;
+  border-radius: .1rem;
+  background-color: #fff;
+  padding: .8rem .8rem;
+  // 关闭按钮
+  .btn-off {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: .8rem;
+    height: .8rem;
+    font-size: .5rem;
+    color: #b1b1b1;
+  }
+  /*.top {*/
+  /*padding: .2rem;*/
+  /*}*/
+  .top-login {
+    color: #929292;
+    font-size: .265rem;
+  }
+  .on{
+    color: @main-cor;
+    border-bottom: 2px solid  @main-cor;
+    width: 1.5rem;
+    text-align: center;
+  }
+  .top-register {
+    color: #929292;
+    font-size: .265rem;
+    margin-left: 2.1rem;
+  }
+  // 提示文字
+  .tips {
+    font-size: 0.4rem;
+    text-align: center;
+  }
+  // 绑定手机
+  .bind-phone {
+    width: 100%;
+    height: 1rem;
+    border: 1px solid #b1b1b1;
+    border-radius: .1rem;
+    padding: 0 .3rem;
+    margin-top: 0.88rem;
+    background:url(~@/assets/phone.png) no-repeat .3rem ;
+    .bg-size(.28rem,.46rem);
+    input {
+      width: 6rem;
+      height: .94rem;
+      margin-left: .5rem;
+      font-size: .36rem;
+    }
+  }
+  .bind-pw {
+    width: 100%;
+    height: 1rem;
+    border: 1px solid #b1b1b1;
+    border-radius: .1rem;
+    padding: 0 .3rem;
+    margin-top: .15rem;
+    background:url(~@/assets/phone.png) no-repeat .3rem ;
+    .bg-size(.28rem,.46rem);
+    input {
+      width: 6rem;
+      height: .94rem;
+      margin-left: .5rem;
+      font-size: .36rem;
+    }
+  }
+  .code {
+    width: 100%;
+    height: 1rem;
+    margin-top: .28rem;
+    input {
+      width: 3.9rem;
+      height: .96rem;
+      border: 1px solid #b1b1b1;
+      border-radius: .1rem;
+      padding-left: .3rem;
+      font-size: .36rem;
+      margin-right: .4rem;
+    }
+    .send-code {
+      width: 3rem;
+      height: .96rem;
+      border: 1px solid #18bd1c;
+      border-radius: .1rem;
+      font-size: .36rem;
+      color: #18bd1c;
+    }
+  }
+  .confirm {
+    width: 100%;
+    height: 1rem;
+    color: #fff;
+    background-color: @main-cor;
+    font-size: .4rem;
+    border-radius: .04rem;
+    margin-top: .76rem;
+  }
+  .pw {
+    float: right;
+    margin-top: .28rem;
+  }
+  .bottom-font{
+    clear: both;
+  }
+}
 </style>
 

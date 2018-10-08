@@ -53,6 +53,10 @@ export default new Router({
       path: '/article/:id', name: 'articleDetail', 
       component: resolve => require(['@/view/article/article'], resolve)
     },
+    { // 相关阅读
+      path: '/relatedRead/:id', name: 'relatedRead',
+      component: resolve => require(['@/view/relatedRead/relatedRead'], resolve)
+    },
     { // 商品详情
       path: '/store/detail/:id', name: 'StoreDetail', 
       component: resolve => require(['@/view/store/detail'], resolve)
