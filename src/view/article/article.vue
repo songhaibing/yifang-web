@@ -26,17 +26,17 @@
             <!-- 分享/点赞 -->
             <div class="jus-e van-hairline--bottom">
                 <div class="flex ali-c">
-                    <div class="share"></div>
+                    <!--<div class="share"></div>-->
                     <div class="like" :class="{on:isCollect}" @click="isLike"></div>
                 </div>
             </div>
         </main>
         <!-- 相关阅读 -->
-        <div class="relevant-article">
+        <div class="relevant-article" v-if="this.$route.params.id != 265">
             <div class="flexc article-xq">相关阅读</div>
             <h2 class="title">{{relevant.title}}</h2>
             <span class="author">{{relevant.author}}</span>
-            <div class="img"><img :src="host+relevant.img" alt="" class="fill"></div>
+            <div class="img"><img :src="relevant.img" alt="" class="fill"></div>
             <p class="content chinese twoline" v-html="xqInfo"></p>  
             <!-- <p class="content english van-hairline--bottom">{{relevant.en_intro}}</p>   -->
         </div>    
@@ -218,12 +218,12 @@ export default {
                 .flex {
                     width: 1.7rem;
                     height: 100%;
-                    .share {
-                        width: .44rem;
-                        height: .44rem;
-                        background-image: url(~@/assets/detail-ico1.png);
-                        .bg-size(.44rem,.44rem);
-                    }
+                    /*<!--.share {-->*/
+                        /*<!--width: .44rem;-->*/
+                        /*<!--height: .44rem;-->*/
+                        /*<!--background-image: url(~@/assets/detail-ico1.png);-->*/
+                        /*<!--.bg-size(.44rem,.44rem);-->*/
+                    /*<!--}-->*/
                     .like {
                         width: .52rem;
                         height: .38rem;

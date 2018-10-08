@@ -33,7 +33,7 @@ const user = {
     },
     //消息详情
     messageDeatail (params) {        
-        return axios.get(`${base.portSRC}/app.php?&m=App&c=index&a=news_detail&key=${params.key}&yhq_id=${params.id}`);    
+        return axios.get(`${base.portSRC}/app.php?&m=App&c=index&a=news_detail&key=${params.key}&id=${params.id}`);
     },
     // 修改个人资料    
     modifyInfo (params) {        

@@ -2,10 +2,13 @@
     <div class="store">
          <!-- 头部 -->
         <pub-head :text="text" bgColor="#20223b" leftColor="#fff">
-            <div slot="imgs" class="title flexc"><img src="@/assets/store-logo.png" alt=""></div>
-            <div class="right-img" @click="goUser"><img src="@/assets/index-login-ico.png" alt="" class="fill"></div>
+            <div slot="imgs" class="title flexc">
+              <img src="@/assets/store-logo.png" alt="">
+            </div>
+            <div class="right-img" @click="goUser">
+              <img src="@/assets/index-login-ico.png" alt="" class="fill">
+            </div>
         </pub-head>
-
         <div class="store-img">
             <img src="@/assets/shopList-banner.jpg" alt="" class="fill-auto">
             <img src="@/assets/shopList-img.jpg" alt="" class="fill-auto">
@@ -28,31 +31,32 @@
                     <div class="goods-msg oneline">{{item.title}}</div>
                 </div>
             </list>
-         <!-- 绑定手机弹框 -->
-        <van-popup 
-            v-model="isShow"
-            class="popup-radius"
-        >
-            
-            <div class="sign-box" v-if="isShow">
-                <!-- 右上角关闭按钮 -->
-                <div class="btn-off flexc" @click="offPupop">X</div>
-                <div class="tips">需要绑定您的手机以便提高账户的安全性</div>
-                <div class="bind-phone"><input type="text" placeholder="请输入11位手机号" v-model="phone"></div>
-                <div class="code flex">
-                    <input type="text" placeholder="请输入验证码" v-model="sendCode">
-                    <div class="send-code flexc" @click="getcode">{{code}}</div>
-                </div>
-                <div class="confirm flexc" @click="submitData">确认</div>
-            </div>
-           
-        </van-popup> 
+      <!-- 绑定手机弹框 -->
+      <van-popup
+        v-model="isShow"
+        class="popup-radius"
+      >
+        <div class="sign-box" v-if="isShow">
+          <!-- 右上角关闭按钮 -->
+          <div class="btn-off flexc"  @click="offPupop">X</div>
+          <div class="tips">需要绑定您的手机以便提高账户的安全性</div>
+          <div class="bind-phone"><input type="text" placeholder="请输入11位手机号" v-model="phone"></div>
+          <div class="code flex">
+            <input type="text" placeholder="请输入验证码" v-model="sendCode">
+            <div class="send-code flexc" @click="getcode">{{code}}</div>
+          </div>
+          <div class="confirm flexc" @click="submitData">确认</div>
+        </div>
+
+      </van-popup>
     </div>
 </template>
 
 <script>
 import pubHead from '@/components/head/head';
 import list from '@/components/listLoad/listLoad';
+import { u_Reg } from '@/config/utils';
+import { mapMutations } from 'vuex';
 export default {
     name:'Store',
     components: {
@@ -68,6 +72,7 @@ export default {
             storeGoods:[],//商品列表
             sendCode:'',//验证码
             phone:'',//手机号
+            isShow:false,//弹框默认不显示
             code: '发送验证码', // 获取验证码按钮文字
             isCode: true, // 是否可以重新获取验证码
             isSubmitData: true,//是否提交
@@ -95,6 +100,9 @@ export default {
         next();
     },
     methods: {
+      ...mapMutations([
+        'bindSuccess'
+      ]),
         onLoad () {
             this.loading = true;
             this.page ++;
@@ -111,11 +119,14 @@ export default {
                 this.finished = res.data.item.length < 8;
             }) 
         },
+      // 关闭弹框
+      offPupop () {
+        this.isShow = false;
+      },
         goUser () {
             let isbind = localStorage.getItem('isbind');
             if(isbind == 1) {
                 this.$router.push('/user/user');
-                
             }else {
                 this.isShow = true;
             }
@@ -266,5 +277,80 @@ export default {
             }
         }
     }
+// 签到弹框
+.sign-box {
+  position: relative;
+  overflow: hidden;
+  width: 8.56rem;
+  height: 7rem;
+  margin: 0 auto;
+  border-radius: .1rem;
+  background-color: #fff;
+  padding: 1.2rem .8rem;
+  // 关闭按钮
+  .btn-off {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: .8rem;
+    height: .8rem;
+    font-size: .5rem;
+    color: #b1b1b1;
+  }
+  // 提示文字
+  .tips {
+    font-size: .32rem;
+    color: #747474;
+    text-align: center;
+  }
+  // 绑定手机
+  .bind-phone {
+    width: 100%;
+    height: 1rem;
+    border: 1px solid #b1b1b1;
+    border-radius: .1rem;
+    padding: 0 .3rem;
+    margin-top: .28rem;
+    background:url(~@/assets/phone.png) no-repeat .3rem ;
+    .bg-size(.28rem,.46rem);
+    input {
+      width: 6rem;
+      height: .94rem;
+      margin-left: .5rem;
+      font-size: .36rem;
+    }
+  }
+  .code {
+    width: 100%;
+    height: 1rem;
+    margin-top: .28rem;
+    input {
+      width: 3.9rem;
+      height: .96rem;
+      border: 1px solid #b1b1b1;
+      border-radius: .1rem;
+      padding-left: .3rem;
+      font-size: .36rem;
+      margin-right: .4rem;
+    }
+    .send-code {
+      width: 3rem;
+      height: .96rem;
+      border: 1px solid #18bd1c;
+      border-radius: .1rem;
+      font-size: .36rem;
+      color: #18bd1c;
+    }
+  }
+  .confirm {
+    width: 100%;
+    height: 1rem;
+    color: #fff;
+    background-color: @main-cor;
+    font-size: .4rem;
+    border-radius: .04rem;
+    margin-top: .28rem;
+  }
+}
 </style>
 

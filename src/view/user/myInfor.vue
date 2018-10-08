@@ -26,7 +26,7 @@
             <div class="name flex">
                  <!-- @click="modify(3)"  不允许修改手机 -->
                 <p class="ali-c">{{phoneNumber}}</p>
-                <img src="@/assets/mycenter-ico6.png" alt="">
+                <!--<img src="@/assets/mycenter-ico6.png" alt="">-->
             </div>
         </div>
         <div class="infor jus-b van-hairline--bottom">

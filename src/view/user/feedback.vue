@@ -3,7 +3,7 @@
         <!-- 头部 -->
         <pub-head title="意见反馈" :text="text">
         </pub-head>
-        <textarea name="" id="" cols="30" rows="10" v-model="feeds" class="feed-back van-hairline"></textarea>
+        <textarea name="" id="" cols="30" rows="10" v-model="feeds" @input="limtLength" maxlength="200" class="feed-back van-hairline"></textarea>
         <div class="mobil flex">
             <div class="attr ali-c">手机号：</div>
             <input type="text" class="value" v-model="mobile">
@@ -29,7 +29,13 @@ import { u_Reg } from '@/config/utils';
                mobile:'',//手机号
             }
         },
-        methods: {
+      methods: {
+          //限制文本域只能输入200字
+          limtLength(){
+            if(this.feeds.length == 200){
+              this.$Tip('只能输入200字');
+            }
+          },
           submitBack () {
                /**
                  * 检测提交的数据
@@ -69,7 +75,7 @@ import { u_Reg } from '@/config/utils';
        min-height: 100vh;
        .feed-back {
            display: block;
-           width: 8.1rem;
+           width: 9rem;
            height: 8.7rem;
            border-radius: .1rem;
            margin: .72rem auto;

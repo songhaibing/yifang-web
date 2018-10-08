@@ -2,13 +2,13 @@
     <div class="index">
         <section class="img-box">
             <!-- 文章 -->
-            <router-link :to="'/article/'+item.id" class="img" v-for="(item,index) in article" :key="index"><img :src="host+item.content" alt=""></router-link>
+            <router-link :to="'/article/'+item.url" class="img" v-for="(item,index) in article" :key="index"><img :src="host+item.content" alt=""></router-link>
             <!-- 商品链接 -->
             <router-link class="img" to="/store/store"><img :src="hosttwo+store.content" alt=""></router-link>
             <!-- 友情链接 -->
             <div class="img"><img :src="hosttwo+flink.content" alt=""></div>
             <!-- 关于我们 -->
-            <router-link :to="'/article/'+about.id" class="img"><img :src="hosttwo+about.content" alt=""></router-link>
+            <router-link :to="'/article/'+about.url" class="img"><img :src="hosttwo+about.content" alt=""></router-link>
             <!-- 底部 -->
             <div class="index-foot" @click="goBindPhone">
                 <div class="ico"><img src="@/assets/index-login-ico.png" alt=""></div>
