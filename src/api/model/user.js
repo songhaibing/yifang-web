@@ -61,7 +61,7 @@ const user = {
     },
     // 提交绑定手机号   
     bindPhone (params) {        
-        return axios.post(`${base.portSRC}/app.php?m=App&c=index&a=mobile`, qs.stringify(params));    
+        return axios.post(`${base.portSRC}/app.php?m=App&c=index&a=login`, qs.stringify(params));
     },
 }
 export default user;

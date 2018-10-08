@@ -135,8 +135,9 @@ export default {
         addCart (id) {
             let isbind = localStorage.getItem('isbind');
             if(isbind == 1) {
+              alert(1)
                 this.$api.store.addCart({
-                    key:this.$store.state.token,
+                    key:localStorage.getItem('access_token'),
                     id:id
                 }).then(res => {
                     this.$Tip(res.msg);

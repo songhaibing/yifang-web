@@ -31,24 +31,20 @@
                 <div class="top-register" data-name="register" :class="{on:type==2}">注册</div>
               </div>
               <div v-if="type==1">
-                <div class="bind-phone"><input type="text" placeholder="请输入账号/手机号" v-model="phone"></div>
-                <div class="bind-pw"><input type="text" placeholder="请输入密码" v-model="password"></div>
-                <!--<div class="code flex">-->
-                <!--<input type="text" placeholder="请输入验证码" v-model="sendCode">-->
-                <!--<div class="send-code flexc" @click="getcode">{{code}}</div>-->
-                <!--</div>-->
+                <div class="bind-phone"><input type="text" placeholder="请输入账号/手机号" v-model="dlphone"></div>
+                <div class="bind-pw"><input type="text" placeholder="请输入密码" v-model="dlpassword"></div>
                 <div class="confirm flexc" @click="submitData">登录</div>
                 <div class="pw" @click="goChangePw">忘记密码?</div>
               </div>
               <div v-if="type==2">
-                <div class="bind-phone"><input type="text" placeholder="请输入11位手机号" v-model="phone"></div>
+                <div class="bind-phone"><input type="text" placeholder="请输入11位手机号" v-model="zcphone"></div>
                 <div class="code flex">
                   <input type="text" placeholder="请输入验证码" v-model="sendCode">
                   <div class="send-code flexc" @click="getcode">{{code}}</div>
                 </div>
-                <div class="bind-pw"><input type="text" placeholder="请输入密码" v-model="phone"></div>
-                <div class="bind-pw"><input type="text" placeholder="再次输入密码" v-model="phone"></div>
-                <div class="confirm flexc" @click="submitData">注册</div>
+                <div class="bind-pw"><input type="text" placeholder="请输入密码" v-model="zcpassword"></div>
+                <div class="bind-pw"><input type="text" placeholder="再次输入密码" v-model="againPassword"></div>
+                <div class="confirm flexc" @click="">注册</div>
               </div>
 
               <div class="bottom-font">勾选代表把你同意《注册声明》《版权声明》</div>
@@ -76,7 +72,7 @@
             <div class="bind-pw"><input type="text" placeholder="请输入新密码" v-model="phone"></div>
           <div>8-16位数字，字母组合，区分大小写</div>
             <div class="bind-pw"><input type="text" placeholder="请确认新密码" v-model="phone"></div>
-            <div class="confirm flexc" @click="submitData">确认</div>
+            <div class="confirm flexc" @click="">确认</div>
           </div>
       </van-popup>
     </div>
@@ -96,7 +92,11 @@ export default {
             store:{},//商城
             about:{},//关于我们
             sendCode:'',//验证码
-            phone:'',//手机号
+            dlphone:'',//手机号
+            dlpassword:'',//密码
+            zcphone:'',
+           zcpassword:'',
+          againPassword:'',
             code: '发送验证码', // 获取验证码按钮文字
             isCode: true, // 是否可以重新获取验证码
             isSubmitData: true,//是否提交
@@ -183,33 +183,34 @@ export default {
             // 防止重复提交
             if (!this.isSubmitData) return;
             // 检测数据类型
-            if(!u_Reg(this.phone, 'notEmpty')){
+            if(!u_Reg(this.dlphone, 'notEmpty')){
                 this.$Tip('请填写手机号');
                 return
             }
-            if(!u_Reg(this.phone, 'phone')){
+            if(!u_Reg(this.dlphone, 'phone')){
                 this.$Tip('手机号格式错误');
                 return
             }
-            if(!u_Reg(this.sendCode,'notEmpty')){
-                this.$Tip('请输入验证码！')
+            if(!u_Reg(this.dlpassword,'notEmpty')){
+                this.$Tip('请输入密码！')
                 return
             } 
             // 提交数据
             this.isSubmitDataisSubmitData = false;
+            console.log(1)
             this.$api.user.bindPhone({
-                mobile: this.phone,
-                m_code: this.sendCode
+                mobile: this.dlphone,
+                password: this.dlpassword
             }).then((res)=>{
                 this.isSubmitData = true;
-                this.$Tip('绑定成功');
+                this.$Tip('登录成功');
                 // 存vuex改变状态
                 this.bindSuccess(1);
                 localStorage.setItem('isbind',1);
                 // 存token
                 const access_token = res.data.key;
                 localStorage.setItem('access_token', access_token);       
-                store.commit('loginSuccess', access_token);
+                // store.commit('loginSuccess', access_token);
                 this.isShow = false;
                 this.isSubmitData = true;
                 setTimeout(()=>{
@@ -217,10 +218,11 @@ export default {
                 },500)
                 this.$router.push('/user/user');
             }).catch(err => {
-                this.$Tip('绑定失败，请重试');
-                this.phone = '';
-                this.sendCode = '';
+                this.$Tip(err);
+                this.dlphone = '';
+                this.dlpassword = '';
                 this.isSubmitData = true;
+                console.log(err)
             })
             
         },

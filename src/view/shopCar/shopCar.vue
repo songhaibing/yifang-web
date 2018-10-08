@@ -100,7 +100,7 @@ import { u_fixed } from '@/config/utils'
             getData () {
                 this.$Loading('加载中');
                 this.$api.store.cartList({
-                    key:this.$store.state.token,
+                    key:localStorage.getItem('access_token'),
                 }).then(res => {
                     let nowList = res.data.cart;
                     nowList.forEach(item => item.isSelect = false);
