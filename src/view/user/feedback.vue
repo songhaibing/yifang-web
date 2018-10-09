@@ -54,7 +54,7 @@ import { u_Reg } from '@/config/utils';
                 }
       
                this.$api.user.backFeed({
-                   key:this.$store.state.token,
+                   key:localStorage.getItem('access_token'),
                    content:this.feeds,
                    mobile:this.mobile
                }).then(res => {

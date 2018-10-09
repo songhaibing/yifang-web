@@ -147,7 +147,7 @@ export default {
     created () {
         this.id = this.$route.query.id;
         this.$api.order.detail({
-            key:this.$store.state.token,
+            key:localStorage.getItem('access_token'),
             order_id:this.id
         }).then(res => {
             this.detail = res.data.order;
@@ -181,7 +181,7 @@ export default {
             this.isShow = false;
             if (this.delOrCan == 1) {
                 this.$api.order.cancelOrder({
-                    key:this.$store.state.token,
+                    key:localStorage.getItem('access_token'),
                     order_id: this.id
                 }).then(res => {
                     this.$Tip('取消订单成功');
@@ -190,7 +190,7 @@ export default {
                 
             }else if (this.delOrCan == 2){
                 this.$api.order.deleteOrder({
-                    key:this.$store.state.token,
+                    key:localStorage.getItem('access_token'),
                     order_id: this.id
                 }).then(res => {
                     this.$Tip('删除订单成功');
@@ -200,7 +200,7 @@ export default {
             }else {
                 // 确认收货调用弹出框
                 this.$api.order.confirm ({
-                    key:this.$store.state.token,
+                    key:localStorage.getItem('access_token'),
                     order_id:this.id
                 }).then(res => {
                     this.$Tip('确认收货成功');

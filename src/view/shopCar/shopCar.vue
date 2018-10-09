@@ -141,7 +141,7 @@ import { u_fixed } from '@/config/utils'
                 this.cartData.forEach(item => item.isSelect ? delArr.push(item.id) : leftArr.push(item));
                 //提交删除数据
                 this.$api.store.delcartList({
-                    key: this.$store.state.token,
+                    key: localStorage.getItem('access_token'),
                     id: delArr.join(',')
                 }).then(res => {
                     this.$Tip('删除成功');
@@ -154,7 +154,7 @@ import { u_fixed } from '@/config/utils'
             //增减商品数量
             addReduce(type, index, id) {
                 this.$api.store.reduceCar({
-                    key:this.$store.state.token,
+                    key:localStorage.getItem('access_token'),
                     type: type,
                     cart_id: id
                 }).then((res)=>{

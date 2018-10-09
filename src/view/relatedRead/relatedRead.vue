@@ -63,7 +63,7 @@
         this.$Loading('加载中');
         this.$api.store.articleDetail({
           article_id:id,
-          key:this.$store.state.token
+          key:localStorage.getItem('access_token')
         }).then(res => {
           this.detail = res.data.article;
           this.relevant = res.data.xg;
@@ -96,7 +96,7 @@
       // 点击喜欢
       isLike () {
         this.$api.store.articleCollect({
-          key:this.$store.state.token,
+          key:localStorage.getItem('access_token'),
           id:this.$route.params.id
         }).then(res => {
           this.isCollect = ! this.isCollect;

@@ -111,7 +111,7 @@ export default {
         if(this.type == 2) {
             this.$Loading('加载中');
             this.$api.store.editAddress({
-                key:this.$store.state.token,
+                key: localStorage.getItem('access_token'),
                 address_id:this.$route.query.addressId
             }).then(res =>{
                 this.info.consignee = res.data.list.shperson;
@@ -146,7 +146,7 @@ export default {
             console.log(5555);
             this.isDelete = false;
             this.$api.store.delAddress({
-                key:this.$store.state.token,
+                key: localStorage.getItem('access_token'),
                 address_id:this.$route.query.addressId
             }).then(res => {
                 
@@ -241,7 +241,7 @@ export default {
         submitData (address,type) {
             this.$Loading('地址修改中');
             type({
-                key: this.$store.state.token,
+                key:  localStorage.getItem('access_token'),
                 shperson: address.consignee,
                 mobile: address.phone,
                 province: address.province,

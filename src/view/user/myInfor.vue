@@ -96,7 +96,7 @@ export default {
     },
     created () {
         this.$api.user.userCenter({
-            key:this.$store.state.token,
+            key:localStorage.getItem('access_token'),
         }).then(res => {
             this.infoImg = res.data.data.avatar;
             this.nickName = res.data.data.nickname;
@@ -128,7 +128,7 @@ export default {
             switch (type) {
                 case 1:
                     this.$api.user.modifyInfo({
-                        key:this.$store.state.token,
+                        key:localStorage.getItem('access_token'),
                         type:type,
                         name:this.nickName
                     }).then(res => {
@@ -137,7 +137,7 @@ export default {
                 break;
                 case 3:
                     this.$api.user.modifyInfo({
-                        key:this.$store.state.token,
+                        key:localStorage.getItem('access_token'),
                         type:type,
                         name:this.phoneNumber
                     }).then(res => {
@@ -146,7 +146,7 @@ export default {
                 break;
                 case 4:
                     this.$api.user.modifyInfo({
-                        key:this.$store.state.token,
+                        key:localStorage.getItem('access_token'),
                         type:type,
                         name:this.email
                     }).then(res => {

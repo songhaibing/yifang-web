@@ -106,7 +106,7 @@ export default {
             this.$api.store.collect({        
                 page: this.page,
                 size: 15,
-                key:this.$store.state.token,
+                key:localStorage.getItem('access_token'),
                 type:type
             }).then(res=> {
                 console.log(res.data);
@@ -150,7 +150,7 @@ export default {
             console.log(delArr.join(','));
            //提交删除数据
             this.$api.store.delCollect({
-                key: this.$store.state.token,
+                key:localStorage.getItem('access_token'),
                 id: delArr.join(',')
             }).then(res => {
                 this.$Tip('删除成功');

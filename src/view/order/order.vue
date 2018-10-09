@@ -145,7 +145,7 @@ export default {
             this.$api.order.orderList({        
                 page: this.page,
                 size: 6,
-                key:this.$store.state.token,
+                key:localStorage.getItem('access_token'),
                 type:type
             }).then(res=> {
                 console.log(res.data);
@@ -189,7 +189,7 @@ export default {
             this.isShow = false;
             if (this.delOrCan == 1) {
                 this.$api.order.cancelOrder({
-                    key:this.$store.state.token,
+                    key:localStorage.getItem('access_token'),
                     order_id: this.id
                 }).then(res => {
                     this.orders[this.nowNum].status = 6;
@@ -198,7 +198,7 @@ export default {
                 
             }else if (this.delOrCan == 2){
                 this.$api.order.deleteOrder({
-                    key:this.$store.state.token,
+                    key:localStorage.getItem('access_token'),
                     order_id: this.id
                 }).then(res => {
                     this.orders.splice(this.nowNum,1);
@@ -207,7 +207,7 @@ export default {
             }else {
                 // 确认收货调用弹出框
                 this.$api.order.confirm ({
-                    key:this.$store.state.token,
+                    key:localStorage.getItem('access_token'),
                     order_id:this.id
                 }).then(res => {
                     this.orders = [];

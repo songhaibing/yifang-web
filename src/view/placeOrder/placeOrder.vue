@@ -152,7 +152,7 @@ import state from '@/store'
                 switch (querys.type) {
                     case "1":
                         order.placeOrderDetail({
-                            key:state.state.token,
+                            key:localStorage.getItem('access_token'),
                             type:1,
                             cart_id:querys.cart_id
                         }).then(res =>{
@@ -164,7 +164,7 @@ import state from '@/store'
                         break;
                     case "2":
                         order.placeOrderDetailOne({
-                            key:state.state.token,
+                            key:localStorage.getItem('access_token'),
                             type:2,
                             item_id:querys.item_id,
                             nums:1
@@ -216,7 +216,7 @@ import state from '@/store'
             // 提交订单
             confirmOrderPay () {
                 order.confirmOrder({
-                    key:state.state.token,
+                    key:localStorage.getItem('access_token'),
                     address_id:this.addressInfo.id,
                     cart_id:this.$route.query.cart_id,
                     item_id:this.$route.query.item_id,

@@ -7,7 +7,7 @@
             </div>
             <!-- 用户头像 -->
             <div class="user-card">
-                <img :src="host+info.avatar" alt="" class="fill">
+                <img src="@/assets/头像.jpg" alt="" class="fill">
             </div>
             <!-- 用户名 -->
             <router-link to="/user/myInfor" class="user-name flex jus-c">
@@ -103,7 +103,7 @@ export default {
     },
     beforeRouteEnter (to, from, next) {
         user.userCenter({
-            key:state.state.token,
+            key:localStorage.getItem('access_token'),
         }).then(res => {
             next(vm => {
                 vm.info = res.data.data;
@@ -116,7 +116,7 @@ export default {
             
             // 加载签到信息
             this.$api.user.signInfo({
-                key:state.state.token,
+                key: localStorage.getItem('access_token'),
             }).then(res => {
                 this.isShow = true;
                 this.signInfo = res.data;
@@ -134,7 +134,7 @@ export default {
             if (this.signInfo.da == 2) {
                 this.$Loading('签到中...');
                 this.$api.user.signIng({
-                    key:state.state.token,
+                    key:localStorage.getItem('access_token'),
                 }).then(res => {
                     this.$Tip('签到成功');
                     this.goSign();

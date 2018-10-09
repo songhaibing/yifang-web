@@ -59,9 +59,16 @@ const user = {
     getCode (params) {        
         return axios.get(`${base.portSRC}/app.php?m=App&c=Ajax&a=aa&mobile=${params.mobile}`);    
     },
-    // 提交绑定手机号   
+    // 登录
     bindPhone (params) {        
         return axios.post(`${base.portSRC}/app.php?m=App&c=index&a=login`, qs.stringify(params));
     },
+  //注册
+  registered (params) {
+    return axios.post(`${base.portSRC}/app.php?m=App&c=index&a=reg`, qs.stringify(params));
+  },
+  resetPassword (params) {
+    return axios.post(`${base.portSRC}/app.php?m=App&c=index&a=forget_pw`, qs.stringify(params));
+  },
 }
 export default user;

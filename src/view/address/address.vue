@@ -37,7 +37,7 @@ export default {
     // 先获取数据再加载组件
     beforeRouteEnter (to, from, next) {
          store.myAddress({
-            key:state.state.token
+            key: localStorage.getItem('access_token')
         }).then(res => {
             next( vm => {
                 from.path === '/user/user' && (vm.fromUser = true);

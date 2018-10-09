@@ -70,7 +70,7 @@ export default {
     methods: {
         onLoad (id) {
             this.$api.store.storeDetail({
-                key:this.$store.state.token,
+                key: localStorage.getItem('access_token'),
                 item_id:id
             }).then(res => {
                 this.detail = res.data.item;
@@ -84,7 +84,7 @@ export default {
         // 点击喜欢
         isLike () {
             this.$api.store.goodsCollect({
-                key:this.$store.state.token,
+                key: localStorage.getItem('access_token'),
                 id:this.$route.params.id
             }).then(res => {
                 this.isCollect = ! this.isCollect;
@@ -102,8 +102,8 @@ export default {
                 this.$Tip('请先绑定手机号');
             }else {
                 this.$api.store.addCart({
-                    key:this.$store.state.token,
-                    id:this.$route.params.id
+                    key: localStorage.getItem('access_token'),
+                  id:this.$route.params.id
                 }).then(res => {
                     this.cartCount++ ;
                     this.$Tip(res.msg);

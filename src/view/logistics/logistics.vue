@@ -39,7 +39,7 @@ import pubHead from '@/components/head/head.vue';
         },
         created () {
             this.$api.order.logistics({
-                key:this.$store.state.token,
+                key:localStorage.getItem('access_token'),
                 order_id: this.$route.query.id
             }).then(res => {
                 this.type = res.data.list;

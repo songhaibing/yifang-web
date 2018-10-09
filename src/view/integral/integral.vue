@@ -113,7 +113,7 @@ import list from '@/components/listLoad/listLoad';
                 this.$api.user.Integral({        
                     page: this.page,
                     size: 6,
-                    key:this.$store.state.token,
+                    key:localStorage.getItem('access_token'),
                     type:type
                 }).then(res=> {
                     this.integralNum = res.data.member_integral;
@@ -140,7 +140,7 @@ import list from '@/components/listLoad/listLoad';
                 let diff = this.integralNum-0 - (num-0);
                 if (diff >= 0) {
                     this.$api.user.exchange({
-                        key:this.$store.state.token,
+                        key:localStorage.getItem('access_token'),
                         id:id
                     }).then(res => {
                         this.$Tip('兑换成功');

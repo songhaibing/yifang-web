@@ -97,7 +97,7 @@ export default {
             this.$api.user.messageList({        
                 page: this.page,
                 size: 15,
-                key:this.$store.state.token
+                key:localStorage.getItem('access_token')
             }).then(res=> {
                 console.log(res.data);
                 this.loading = false;
@@ -143,7 +143,7 @@ export default {
             console.log(delArr.join(','));
            //提交删除数据
             this.$api.user.delMessage({
-                key: this.$store.state.token,
+                key: localStorage.getItem('access_token'),
                 id: delArr.join(',')
             }).then(res => {
                 this.$Tip('删除成功');

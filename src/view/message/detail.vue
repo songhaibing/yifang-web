@@ -23,7 +23,7 @@ import head from '@/components/head/head.vue';
         },
         created () {
             this.$api.user.messageDeatail({
-                key:this.$store.state.token,
+                key:localStorage.getItem('access_token'),
                 id:this.$route.query.id
             }).then(res => {
                 this.detail = res.data.news

@@ -59,7 +59,7 @@ export default {
         });
          // 获取信息
         this.$api.order.evaluate({
-            key: this.$store.state.token,
+            key: localStorage.getItem('access_token'),
             order_id: this.$route.query.id
         }).then(res => {
             
@@ -114,7 +114,7 @@ export default {
                 }
                 this.$Loading('发布中');
                 this.$api.order.placeEvaluate({
-                    key: this.$store.state.token,
+                    key: localStorage.getItem('access_token'),
                     item_id:this.data.item_id,
                     order_id: this.$route.query.id,
                     xx:this.score,
