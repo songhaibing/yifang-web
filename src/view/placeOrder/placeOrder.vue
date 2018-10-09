@@ -60,6 +60,10 @@
                 <div>配送费</div>
                 <div>￥{{freight}}</div>
             </div>
+          <div class="jus-b ali-c van-hairline--bottom info" v-if="price >0">
+            <div>使用优惠券</div>
+            <div><van-switch v-model="coupon" size="36px" @change="swichTab"/></div>
+          </div>
             <div class="jus-b ali-c van-hairline--bottom info">
                 <div>开具发票</div>
                 <div><van-switch v-model="isBill" size="36px" @input="onInput(isBill)"/></div>
@@ -107,6 +111,9 @@ import state from '@/store'
                     {title:'个人',type:1},
                     {title:'公司',type:2}
                 ],
+              coupon:false,//优惠券
+              price:localStorage.getItem("price"),
+              newPrice:0,
                 nowindex:0,
                 invoice:'',//发票抬头留言
                 isInvoice:false,//开具发票留言
@@ -127,7 +134,9 @@ import state from '@/store'
             }
         },
         created () {
+          this.initCoupon()
             this.type = this.$route.query.type;
+
         },
         filters: {
             fixed2 (val) {
@@ -152,7 +161,7 @@ import state from '@/store'
                 switch (querys.type) {
                     case "1":
                         order.placeOrderDetail({
-                            key:localStorage.getItem('access_token'),
+                            key:localStorage.getItem("access_token"),
                             type:1,
                             cart_id:querys.cart_id
                         }).then(res =>{
@@ -182,13 +191,29 @@ import state from '@/store'
             }  
         },
         methods: {
+          initCoupon(){
+            if(localStorage.getItem("price")>0){
+              this.coupon=true
+            }
+          },
+          //优惠券按钮切换
+          swichTab(){
+            if(this.coupon){
+              localStorage.setItem('price',this.price)
+              this.totalprices=this.totalprices - localStorage.getItem('price')
+            }else{
+              localStorage.setItem('price', this.price)
+              this.totalprices=this.totalprices + (+localStorage.getItem('price'))
+            }
+            console.log(this.coupon)
+          },
             // 渲染下单的页面数据
             renderData (res) {
                 this.addressInfo = res.data.order_address;
                 this.goodsInfo = res.data.cart;
                 this.addressEmpty = 'id' in this.addressInfo;
                 this.freight = res.data.yunfei;
-                this.totalprices = res.data.totalprices;
+                this.totalprices = res.data.totalprices - localStorage.getItem('price');
                 this.prices = res.data.prices;
             },
             //渲染直接下单的页面数据
@@ -197,7 +222,7 @@ import state from '@/store'
                 this.goodsInfoOne = res.data.cart;
                 this.addressEmpty = 'id' in this.addressInfo;
                 this.freight = res.data.yunfei;
-                this.totalprices = res.data.totalprices;
+                this.totalprices = res.data.totalprices - localStorage.getItem('price');
                 this.prices = res.data.prices;
             },
              // 切换tab栏
@@ -236,8 +261,6 @@ import state from '@/store'
                     }).then(res => {
                         this.awakenWXPay(res.data.data);
                     })
-                        
-
                 }).catch(err => {
                     this.$Tip('提交失败，请刷新重试')
                 })

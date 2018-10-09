@@ -53,7 +53,7 @@ const order = {
     },
     // 确认提交订单 
     confirmOrder (params) {        
-        return axios.post(`${base.portSRC}/app.php?m=App&c=Cart&a=order_affirm`, qs.stringify(params));    
+        return axios.post(`${base.portSRC}/app.php?m=App&c=Cart&a=order_affirm`, qs.stringify(params));
     },
 
     // 购物车结算    
@@ -66,7 +66,7 @@ const order = {
     },  
     // 确认支付 
     confirmPay (params) {        
-        return axios.post(`${base.portSRC}/app.php?m=App&c=Cart&a=pay`, qs.stringify(params));    
+        return axios.post(`${base.portSRC}/app.php?m=App&c=Cart&a=pay`, qs.stringify(params));
     },
 
 }

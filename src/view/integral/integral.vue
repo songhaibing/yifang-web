@@ -26,16 +26,19 @@
             >
             <!-- 立即兑换 -->
             <li class="flex" v-for="(item,index) in list" :key="index">
-                <div class="img"><img :src="host+img" alt="" class="fill"></div>
+                <div class="img"><img :src="item.img" alt="" class="fill"></div>
                 <div class="flex1 jus-b ali-c">
                     <div class="text-info">
                         <div class="title">{{item.price}}{{item.title}}</div>
                         <div class="state">下单自动减免</div>
                         <div class="date">兑换所需积分：{{item.integral}}</div>
                     </div>
-                    <div @click="goExchange(item.id,item.integral)" v-if="nowindex == 1"><div class="btn flexc" v-if="integralNum-0 >= item.integral-0">立即兑换</div><div class="btn flexc off" v-else>积分不足</div></div>
+                    <div @click="goExchange(item.id,item.integral)" v-if="nowindex == 1">
+                      <div class="btn flexc" v-if="integralNum-0 >= item.integral-0">立即兑换</div>
+                      <div class="btn flexc off" v-else>积分不足</div>
+                    </div>
                     <div v-if="nowindex == 2 || nowindex == 3">
-                        <div class="btn flexc" v-if="item.status == 0">立即使用</div>
+                        <div class="btn flexc" v-if="item.status == 0" @click="useImmediately(item.price)">立即使用</div>
                         <div class="btn flexc off" v-if="item.status == 1">已使用</div>
                         <div class="btn flexc off" v-if="item.status == 2">已过期</div>
                     </div>
@@ -152,6 +155,12 @@ import list from '@/components/listLoad/listLoad';
                 }
                 
             },
+          useImmediately (e){
+              console.log(parseInt(e))
+              let number = parseInt(e)
+              this.$router.push("/store/store")
+              localStorage.setItem('price',number)
+          },
             // 点击签到弹框
             gain () {
                 this.isShow = true;

@@ -78,6 +78,46 @@
             <div class="confirm flexc" @click="sure">确认</div>
           </div>
       </van-popup>
+
+      <!--注册成功-->
+      <van-popup
+        v-model="registeredModel"
+        class="popup-radius"
+      >
+        <div class="registered-box" v-if="registeredModel">
+          <!-- 右上角关闭按钮 -->
+          <div class="btn-off flexc" @click="registeredModelDown">X</div>
+          <div class="registered-tip">
+            <img class="tip-img"  src="@/assets/register_succeed.png" alt=""/>
+            <div class="tip-font">注册成功</div>
+          </div>
+          <div class="flexc flexv">
+            <img class="registered-img" src="@/assets/register_gift_bg.png" alt="">
+            <div class="description">会员积分说明</div>
+          </div>
+
+          <div class="font-contain">
+            <span class="ordinary">每</span>
+            <span class="ordinary-bold">500</span>
+            <span class="bold">积分</span>
+            <span class="ordinary">可抵扣商城商品</span>
+            <span class="ordinary-bold">10</span>
+            <span class="bold">元</span>
+          </div>
+          <div class="getIntegral">积分如何获取？</div>
+          <div style="margin-top: .3rem">
+            <div class="integral">1、【新用户】首次注册登陆网站+88积分</div>
+            <div class="integral">2、【签到】每日可登陆网站签到获取一次积分</div>
+            <div class="integral">3、【阅读】阅读一篇文章+10积分</div>
+            <div class="integral">4、【分享】分享文章到微博,QQ,微信+10积分</div>
+          </div>
+          <div class="getIntegral">会员权益说明</div>
+          <div>1、注册即送积分，享受积分兑换商城折扣的专属权益</div>
+          <div>2、会员拥有个人设置、网站留言、阅读积分等专属功能</div>
+          <div class="confirm flexc" @click="sign">登录</div>
+        </div>
+
+      </van-popup>
     </div>
 </template>
 
@@ -115,7 +155,9 @@ export default {
             hosttwo:'http://101yi.cn/data/attachment/guang/',//域名前缀
             type:1,
             showModel:false,
-           czSubmitData:true
+           czSubmitData:true,
+           preventDuplication:true,
+           registeredModel:false//控制注册成功model显示与隐藏
         }
     },
     created () {
@@ -130,6 +172,38 @@ export default {
         ...mapMutations([
             'bindSuccess'
 		]),
+      //注册成功之后登录
+      sign () {
+        if (! this.preventDuplication) return;
+        this.$api.user.bindPhone({
+          mobile: this.zcphone,
+          password: this.zcpassword
+        }).then((res)=>{
+          if(res.status==0){
+            this.$Tip(res.msg);
+          }else{
+            this.preventDuplication = true;
+            this.$Tip('登录成功');
+            // 存vuex改变状态
+            this.bindSuccess(1);
+            localStorage.setItem('isbind',1);
+            // 存token
+            const access_token = res.data.key;
+            localStorage.setItem('access_token', access_token);
+            // store.commit('loginSuccess', access_token);
+            this.registeredModel = false;
+            this.preventDuplication = true;
+            setTimeout(()=>{
+              this.$router.push('/user/user');
+            },500)
+            this.$router.push('/user/user');
+          }
+
+        }).catch(err => {
+          this.$Tip(err);
+          console.log(err)
+        })
+      },
       isSelected(){
           this.isImg= !this.isImg
       },
@@ -147,6 +221,10 @@ export default {
         offPupop () {
             this.isShow = false;
         },
+      //关闭弹框
+      registeredModelDown() {
+          this.registeredModel=false
+      },
       //tab切换
       tabChange(e){
           let name =e.target.dataset.name
@@ -230,12 +308,11 @@ export default {
             this.$Tip(res.msg);
           }else {
             this.zcSubmitData = true;
-            this.$Tip('注册成功,请登录');
+            // this.$Tip('注册成功,请登录');
+            setTimeout(()=>{
+              this.registeredModel=true
+            },1000)
             this.isShow = false;
-            this.zcphone = '';
-            this.zcpassword = '';
-            this.againPassword = '';
-            this.zcsendCode ='';
             this.type=1;
             this.zcSubmitData = true;
           }
@@ -666,5 +743,94 @@ export default {
     margin-left: .3rem;
   }
 }
+  //注册成功弹框
+  .registered-box {
+    position: relative;
+    overflow: hidden;
+    width: 8.56rem;
+    height: 13rem;
+    margin: 0 auto;
+    border-radius: .1rem;
+    background-color: #fff;
+    padding: .8rem .8rem ;
+    // 关闭按钮
+    .btn-off {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: .8rem;
+      height: .8rem;
+      font-size: .5rem;
+      color: #b1b1b1;
+    }
+    .registered-tip{
+      border: 2px solid #dd1260;
+      width: 6rem;
+      height: 0.66rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: .3rem;
+      .tip-img {
+        width: .41rem;
+        height: .41rem;
+      }
+      .tip-font{
+        margin-left: .3rem;
+        font-size: .23rem;
+        color: #dd1260;
+      }
+    }
+    .registered-img{
+      width: 5.7rem;
+      height: 2rem;
+      margin-top: .5rem;
+      margin-right: .4rem;
+    }
+    .description{
+      font-size:.31rem;
+      color: #dd1260;
+      margin-top: .4rem;
+    font-weight: bold;
+    }
+    .font-contain{
+      margin-top: .3rem;
+      margin-right: .3rem;
+      .ordinary{
+        font-size: .27rem;
+        color: #353434;
+        font-weight: bold;
+      }
+      .ordinary-bold{
+        font-size: .42rem;
+        color: #dd1260;
+        font-weight: bold;
+      }
+      .bold{
+        font-size: .27rem;
+        color: #dd1260;
+        color: #dd1260;
+      }
+    }
+   .getIntegral{
+     color: #dd1260;
+     font-size: .24rem;
+     font-weight: bold;
+     margin-right: 3.3rem;
+     margin-top: .3rem;
+   }
+    .integral{
+      font-size: .18rem;
+    }
+     .confirm {
+      width: 100%;
+      height: 1rem;
+      color: #fff;
+      background-color: @main-cor;
+      font-size: .4rem;
+      border-radius: .04rem;
+      margin-top: .76rem;
+    }
+  }
 </style>
 
