@@ -65,9 +65,10 @@ const order = {
         return axios.get(`${base.portSRC}/app.php?m=App&c=Cart&a=order_submit&type=${params.type}&item_id=${params.item_id}&key=${params.key}&nums=${params.nums}`);    
     },  
     // 确认支付 
-    confirmPay (params) {        
+    confirmPay (params) {
         return axios.post(`${base.portSRC}/app.php?m=App&c=Cart&a=pay`, qs.stringify(params));
     },
+
 
 }
 

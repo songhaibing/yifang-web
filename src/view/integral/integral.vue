@@ -97,6 +97,7 @@ import list from '@/components/listLoad/listLoad';
                 list:[],//订单列表
                 integralNum:'',//积分数量
                 host:'http://101yi.cn/data/attachment/item/',//图片路径前缀
+              num:''
             }
         },
         created () {
@@ -157,9 +158,9 @@ import list from '@/components/listLoad/listLoad';
             },
           useImmediately (e){
               console.log(parseInt(e))
-              let number = parseInt(e)
+              this.num = parseInt(e)
               this.$router.push("/store/store")
-              localStorage.setItem('price',number)
+              localStorage.setItem("price", this.num)
           },
             // 点击签到弹框
             gain () {

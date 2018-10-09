@@ -60,7 +60,7 @@
                 <div>配送费</div>
                 <div>￥{{freight}}</div>
             </div>
-          <div class="jus-b ali-c van-hairline--bottom info" v-if="price >0">
+          <div class="jus-b ali-c van-hairline--bottom info" v-if="price">
             <div>使用优惠券</div>
             <div><van-switch v-model="coupon" size="36px" @change="swichTab"/></div>
           </div>
@@ -105,15 +105,14 @@ import state from '@/store'
         },
         data () {
             return {
+               price : '',
                 text:true,//头部文字显示
                 leaveWord:'',//买家留言
                 tabs:[
                     {title:'个人',type:1},
                     {title:'公司',type:2}
                 ],
-              coupon:false,//优惠券
-              price:localStorage.getItem("price"),
-              newPrice:0,
+               coupon:false,//优惠券
                 nowindex:0,
                 invoice:'',//发票抬头留言
                 isInvoice:false,//开具发票留言
@@ -134,10 +133,10 @@ import state from '@/store'
             }
         },
         created () {
-          this.initCoupon()
             this.type = this.$route.query.type;
+            this.initCoupon();
 
-        },
+      },
         filters: {
             fixed2 (val) {
                 return u_fixed(val);
@@ -192,8 +191,10 @@ import state from '@/store'
         },
         methods: {
           initCoupon(){
-            if(localStorage.getItem("price")>0){
+            if(localStorage.getItem("price") >0){
               this.coupon=true
+            }else {
+
             }
           },
           //优惠券按钮切换
@@ -205,7 +206,6 @@ import state from '@/store'
               localStorage.setItem('price', this.price)
               this.totalprices=this.totalprices + (+localStorage.getItem('price'))
             }
-            console.log(this.coupon)
           },
             // 渲染下单的页面数据
             renderData (res) {
@@ -215,6 +215,8 @@ import state from '@/store'
                 this.freight = res.data.yunfei;
                 this.totalprices = res.data.totalprices - localStorage.getItem('price');
                 this.prices = res.data.prices;
+              this.price = localStorage.getItem("price");
+              console.log(this.price);
             },
             //渲染直接下单的页面数据
             renderDataOne (res) {
@@ -224,6 +226,8 @@ import state from '@/store'
                 this.freight = res.data.yunfei;
                 this.totalprices = res.data.totalprices - localStorage.getItem('price');
                 this.prices = res.data.prices;
+              this.price = localStorage.getItem("price");
+              console.log(this.price);
             },
              // 切换tab栏
             tabchange(index, tab) {
@@ -259,7 +263,8 @@ import state from '@/store'
                         dingdan: this.orderNum,
                         totalprices: this.totalprices
                     }).then(res => {
-                        this.awakenWXPay(res.data.data);
+                      this.qrImg = res.data.pay
+                        // this.awakenWXPay(res.data.data);
                     })
                 }).catch(err => {
                     this.$Tip('提交失败，请刷新重试')
