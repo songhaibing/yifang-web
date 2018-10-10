@@ -112,12 +112,13 @@ export default {
     methods: {
       onRead(e){
         this.avatarImg =e.content
-        console.log(e.content)
+        this.$Loading('头像修改中');
         this.$api.user.modifyInfo({
           key:localStorage.getItem('access_token'),
           type:2,
           name:this.avatarImg
         }).then(res => {
+          this.$toast.clear();
           this.$Tip('头像修改成功');
         });
       },

@@ -37,7 +37,7 @@ const order = {
     },
     // 查看评价    
     myEvaluate (params) {        
-        return axios.get(`${base.portSRC}/app.php?m=App&c=Cart&a=order_submit&order_id=${params.order_id}&key=${params.key}`);    
+        return axios.get(`${base.portSRC}/app.php?m=App&c=Order&a=see_evaluation&order_id=${params.order_id}&key=${params.key}`);
     },   
     // 提交退款申请    
     placeOrder (params) {        
