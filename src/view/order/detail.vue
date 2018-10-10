@@ -108,7 +108,7 @@
         <div class="all-btn jus-e ali-c van-hairline--top">
             <div class="del-order flexc" @click="delOrder(2)" v-if="detail.status == 4">删除订单</div>
             <div class="cancel-order flexc" @click="delOrder(1)" v-if="detail.status == 1">取消订单</div>
-            <div class="go-pay flexc" v-if="detail.status == 1" goPay(detail.dingdan,detail.totalprices)>去支付</div>
+            <div class="go-pay flexc" v-if="detail.status == 1" @click="goPay(detail.dingdan,detail.totalprices)">去支付</div>
             <div class="look-logistics flexc" v-if="detail.status == 4 || detail.status == 3" @click="lookLogistics(order.id)">查看物流</div> 
             <div class="sure flexc" @click="delOrder(3)" v-if="detail.status == 3">确认收货</div>
             <div class=" flexc" v-if="detail.status == 2" @click="remind">提醒发货</div> 

@@ -35,7 +35,6 @@
                     <div class="num">x{{goods.nums}}</div>
                 </div>
             </div>
-            
         </div>
         <!-- 直接购买详情信息 type= 2 -->
         <div class="msg flex ali-c"  v-if="type == 2">
@@ -45,7 +44,7 @@
                 <div class="goods-type">分类：{{goodsInfoOne.cate_name}}</div>
                 <div class="order-num jus-b">
                     <div class="price">￥{{goodsInfoOne.price}}</div>
-                    <div class="num">x{{goodsInfoOne.nums}}</div>
+                    <div class="num">x1</div>
                 </div>
             </div>
             
@@ -81,7 +80,8 @@
                 <div>买家留言：</div>
                 <div><input type="text" v-model="leaveWord"></div>
             </div>
-            <div class="jus-e info ali-c">共2件商品 小计：<span>¥ {{prices | fixed2}}</span></div>
+            <div class="jus-e info ali-c" v-if="type==2">共1件商品 小计：<span>¥ {{prices | fixed2}}</span></div>
+          <div class="jus-e info ali-c" v-if="type==1">共{{totalnums}}件商品 小计：<span>¥ {{prices | fixed2}}</span></div>
         </div>
 
         <!-- foot -->
@@ -112,7 +112,7 @@ import state from '@/store'
                     {title:'个人',type:1},
                     {title:'公司',type:2}
                 ],
-               coupon:false,//优惠券
+                coupon:true,//优惠券
                 nowindex:0,
                 invoice:'',//发票抬头留言
                 isInvoice:false,//开具发票留言
@@ -130,12 +130,11 @@ import state from '@/store'
                 billCate:1,//开具发票，1位个人，2为公司  默认个人
                 id:'',//提交下单后的订单id
                 orderNum:'',//提交订单号
+                totalnums:'',//购物车商品总数
             }
         },
         created () {
             this.type = this.$route.query.type;
-            this.initCoupon();
-
       },
         filters: {
             fixed2 (val) {
@@ -155,8 +154,9 @@ import state from '@/store'
                 next(vm => {
                     addressSelected && (vm.addressInfo = JSON.parse(addressSelected), vm.addressEmpty = true);
                 })
+
             // 否则重新加载订单数据
-            } else {       
+            } else {
                 switch (querys.type) {
                     case "1":
                         order.placeOrderDetail({
@@ -168,7 +168,6 @@ import state from '@/store'
                                 vm.renderData(res);
                             })
                         })
-                        
                         break;
                     case "2":
                         order.placeOrderDetailOne({
@@ -182,19 +181,56 @@ import state from '@/store'
                             })
                         })
                         break;
-                    
+
                     default:
                         next()
                         break;
                 }
-            }  
+            }
         },
+      activated() {
+        // isUseCache为false时才重新刷新获取数据
+        // 因为对list使用keep-alive来缓存组件，所以默认是会使用缓存数据的
+        if(!this.$route.meta.isUseCache){
+          this.type = ''; // 清空原有数据
+          this. addressInfo=''
+          if(sessionStorage.getItem('addressSelected') == null){
+            this.onLoad()
+          }
+          this.type = this.$route.query.type;// 这是我们获取数据的函数
+        }
+        // 通过这个控制刷新
+        this.$route.meta.isUseCache = false;
+      },
         methods: {
-          initCoupon(){
-            if(localStorage.getItem("price") >0){
-              this.coupon=true
-            }else {
-
+          //重新获取数据
+          onLoad (){
+            switch (this.$route.query.type) {
+              case "1":
+                order.placeOrderDetail({
+                  key:localStorage.getItem("access_token"),
+                  type:1,
+                  cart_id:this.$route.query.cart_id
+                }).then(res =>{
+                  this.addressInfo=res.data.order_address
+                  if( this.addressInfo.length==0){
+                    this.addressEmpty=false
+                  }
+                })
+                break;
+              case "2":
+                order.placeOrderDetailOne({
+                  key:localStorage.getItem('access_token'),
+                  type:2,
+                  item_id:this.$route.query.item_id,
+                  nums:1
+                }).then(res =>{
+                  this.addressInfo=res.data.order_address;
+                  if( this.addressInfo.length==0){
+                    this.addressEmpty=false
+                  }
+                })
+                break;
             }
           },
           //优惠券按钮切换
@@ -210,13 +246,13 @@ import state from '@/store'
             // 渲染下单的页面数据
             renderData (res) {
                 this.addressInfo = res.data.order_address;
+                this.totalnums=res.data.totalnums;
                 this.goodsInfo = res.data.cart;
                 this.addressEmpty = 'id' in this.addressInfo;
                 this.freight = res.data.yunfei;
                 this.totalprices = res.data.totalprices - localStorage.getItem('price');
                 this.prices = res.data.prices;
-              this.price = localStorage.getItem("price");
-              console.log(this.price);
+               this.price = localStorage.getItem("price");
             },
             //渲染直接下单的页面数据
             renderDataOne (res) {
@@ -227,7 +263,6 @@ import state from '@/store'
                 this.totalprices = res.data.totalprices - localStorage.getItem('price');
                 this.prices = res.data.prices;
               this.price = localStorage.getItem("price");
-              console.log(this.price);
             },
              // 切换tab栏
             tabchange(index, tab) {
@@ -256,6 +291,9 @@ import state from '@/store'
                     yunfei:this.freight,
                     totalprices:this.totalprices
                 }).then(res => {
+                  if(res.status==0){
+                    this.$Tip(res.msg)
+                  }
                     this.id = res.data.order_id;
                     this.orderNum = res.data.dingdan;
                     // 微信支付函数

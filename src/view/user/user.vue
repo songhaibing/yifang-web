@@ -7,7 +7,7 @@
             </div>
             <!-- 用户头像 -->
             <div class="user-card">
-                <img src="@/assets/头像.jpg" alt="" class="fill">
+                <img :src="info.avatar" alt="" class="fill">
             </div>
             <!-- 用户名 -->
             <router-link to="/user/myInfor" class="user-name flex jus-c">
@@ -53,7 +53,6 @@
             v-model="isShow"
             class="popup-radius"
         >
-            
             <div class="sign-box" v-if="isShow">
                 <!-- 右上角关闭按钮 -->
                 <div class="btn-off" @click="offSign"></div>

@@ -143,18 +143,18 @@ export default {
         },
         // 确认删除
         onConfirm () {
-            console.log(5555);
             this.isDelete = false;
             this.$api.store.delAddress({
                 key: localStorage.getItem('access_token'),
                 address_id:this.$route.query.addressId
             }).then(res => {
-                
+              sessionStorage.removeItem('addressSelected');
                 this.$Loading('删除中');
                 this.$toast.clear();
                 this.$Tip('删除成功');
                 setTimeout(() => {
                     this.$router.go(-1)
+
                 }, 1000);
             })
         },
@@ -240,6 +240,14 @@ export default {
         */
         submitData (address,type) {
             this.$Loading('地址修改中');
+            const addressSelected = {
+              shperson: address.consignee,
+              mobile: address.phone,
+              province: address.province,
+              city: address.city,
+              county: address.country,
+              address: address.detail,
+            }
             type({
                 key:  localStorage.getItem('access_token'),
                 shperson: address.consignee,
@@ -255,6 +263,7 @@ export default {
                 this.$Tip(this.type== 1 ? '新增地址成功' : '修改成功');
                 setTimeout(() => {
                     this.$router.go(-1)
+                    sessionStorage.setItem('addressSelected', JSON.stringify(addressSelected));
                 }, 1500);
             })
         },

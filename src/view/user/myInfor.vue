@@ -17,9 +17,8 @@
         <div class="infor jus-b van-hairline--bottom ali-c">
             <div class="nick flex1">头像</div>
             <div class="infor-img flex ali-c" @click="modifyImg">
-                <img :src="host+infoImg" alt="" class="fill">
+                <img :src="infoImg" alt="" class="fill">
             </div>
-            
         </div>
         <div class="infor jus-b van-hairline--bottom ali-c">
             <div class="nick flex1">手机号</div>
@@ -64,7 +63,9 @@
         >
             <div class="img-box">
                 <div class="graph flexc van-hairline--bottom" @click="onSure">拍照</div>
-                <div class="album flexc" @click="onSure">相册</div>
+              <van-uploader  :after-read="onRead" :oversize="oversize" class="album flexc">
+                <div  @click="onSure">相册</div>
+              </van-uploader>
             </div>
             <div class="cancel flexc" @click="onSure">
                 取消
@@ -92,6 +93,8 @@ export default {
             text:true,//头部文字显示
             infoImg:'',//用户头像
             host:'http://101yi.cn/data/attachment/useravatar/',//图片路径前缀
+           size:100000,
+          avatarImg:''
         }
     },
     created () {
@@ -104,7 +107,23 @@ export default {
             this.email = res.data.data.email;
         })
     },
+
+
     methods: {
+      onRead(e){
+        this.avatarImg =e.content
+        console.log(e.content)
+        this.$api.user.modifyInfo({
+          key:localStorage.getItem('access_token'),
+          type:2,
+          name:this.avatarImg
+        }).then(res => {
+          this.$Tip('头像修改成功');
+        });
+      },
+      oversize(){
+        this.$Tip('文件太大无法上传');
+      },
         // 修改资料调用弹出框
         modify (page) {
             this.type = page;
