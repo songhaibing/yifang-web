@@ -299,10 +299,10 @@ import state from '@/store'
                     // 微信支付函数
                     order.confirmPay({
                         dingdan: this.orderNum,
-                        totalprices: this.totalprices
+                        totalprices: this.totalprices,
                     }).then(res => {
                       this.qrImg = res.data.pay
-                        // this.awakenWXPay(res.data.data);
+                        this.awakenWXPay(res.data.data);
                     })
                 }).catch(err => {
                     this.$Tip('提交失败，请刷新重试')

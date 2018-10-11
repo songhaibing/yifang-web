@@ -122,7 +122,6 @@
 </template>
 
 <script>
-import head from '@/components/head/head.vue';
 import { u_Reg } from '@/config/utils';
 import { mapMutations } from 'vuex';
 import store from '@/store/index'
@@ -160,18 +159,31 @@ export default {
            registeredModel:false//控制注册成功model显示与隐藏
         }
     },
+  beforeRouteLeave (to, from, next) {
+    // 如果前往商品详情或者店铺详情则缓存数据
+    if (to.name === 'articleDetail') {
+      from.meta.isUseCache = true;
+    }
+    next();
+  },
     created () {
-        this.$api.user.index().then(res => {
-            this.article = res.data.article;
-            this.flink = res.data.flink;
-            this.store = res.data.item;
-            this.about = res.data.about;
-        })
+      this.getIndex()
     },
     methods: {
         ...mapMutations([
             'bindSuccess'
 		]),
+      //加载首页数据
+      getIndex() {
+        this.$Loading('加载中');
+        this.$api.user.index().then(res => {
+          this.article = res.data.article;
+          this.flink = res.data.flink;
+          this.store = res.data.item;
+          this.about = res.data.about;
+        })
+        this.$toast.clear();
+      },
       //注册成功之后登录
       sign () {
         if (! this.preventDuplication) return;
@@ -296,6 +308,10 @@ export default {
           this.$Tip('请再次输入密码！')
           return
         }
+        if(this.zcpassword !== this.againPassword ){
+          this.$Tip('密码不一致！')
+          return
+        }
         // 提交数据
         this.isSubmitDataisSubmitData = false;
         this.$api.user.registered({
@@ -308,7 +324,6 @@ export default {
             this.$Tip(res.msg);
           }else {
             this.zcSubmitData = true;
-            // this.$Tip('注册成功,请登录');
             setTimeout(()=>{
               this.registeredModel=true
             },1000)
@@ -403,9 +418,13 @@ export default {
           this.$Tip('请确认新密码！')
           return
         }
+        if(this.newPassword !== this.czpassword){
+          this.$Tip('密码不一致！')
+          return
+        }
         // 提交数据
         this.isSubmitDataisSubmitData = false;
-        this.$api.user.bindPhone({
+        this.$api.user.resetPassword({
           mobile: this.czphone,
           password: this.czpassword,
           qrpassword:this.newPassword,

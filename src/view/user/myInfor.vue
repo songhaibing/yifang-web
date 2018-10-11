@@ -61,10 +61,9 @@
             class="popup-img"
             position="bottom"
         >
-            <div class="img-box">
-                <div class="graph flexc van-hairline--bottom" @click="onSure">拍照</div>
-              <van-uploader  :after-read="onRead" :oversize="oversize" class="album flexc">
-                <div  @click="onSure">相册</div>
+            <div class="img-box flexc">
+              <van-uploader  :after-read="onRead"  class="album flexc">
+                   <span  @click="onSure">拍照/相册</span>
               </van-uploader>
             </div>
             <div class="cancel flexc" @click="onSure">
@@ -93,8 +92,8 @@ export default {
             text:true,//头部文字显示
             infoImg:'',//用户头像
             host:'http://101yi.cn/data/attachment/useravatar/',//图片路径前缀
-           size:100000,
-          avatarImg:''
+            avatarImg:'',
+           imgName:'',//图片名称
         }
     },
     created () {
@@ -110,20 +109,42 @@ export default {
 
 
     methods: {
-      onRead(e){
-        this.avatarImg =e.content
+      // onRead(e){
+      //   this.avatarImg =e.content
+      //   this.$Loading('头像修改中');
+      //   this.$api.user.modifyInfo({
+      //     key:localStorage.getItem('access_token'),
+      //     type:2,
+      //     name:this.avatarImg
+      //   }).then(res => {
+      //     this.$toast.clear();
+      //     this.$Tip('头像修改成功');
+      //   });
+      // },
+      onRead (file) {
         this.$Loading('头像修改中');
-        this.$api.user.modifyInfo({
-          key:localStorage.getItem('access_token'),
-          type:2,
-          name:this.avatarImg
-        }).then(res => {
-          this.$toast.clear();
-          this.$Tip('头像修改成功');
-        });
-      },
-      oversize(){
-        this.$Tip('文件太大无法上传');
+        let param = new FormData(); //创建form对象
+        param.append('images', file.file, file.file.name);//通过append向form对象添加数据
+        console.log(param);
+        this.$api.store.upload(param).then(res=> {
+          console.log(res);
+          if (res.status === 1) {
+            this.infoImg = file.content;
+            this.imgName = res.data.result[0].name;
+            this.$api.user.modifyInfo({
+              key:localStorage.getItem('access_token'),
+              type:2,
+              name: this.imgName
+            }).then(res => {
+              this.$Tip('头像修改成功');
+              this.closeImg=false;
+            });
+            this.$toast.clear();
+          } else {
+            this.$toast.clear();
+            this.$Tip('头像上传失败，请重试');
+          }
+        })
       },
         // 修改资料调用弹出框
         modify (page) {
@@ -251,12 +272,12 @@ export default {
     .popup-img {
         width: 9.2rem;
         margin: .4rem auto;
-        height: 5rem;
+        height: 4rem;
         font-size: .36rem;
         color: #252525;
         .img-box {
             width: 100%;
-            height: 3rem;
+            height: 1.5rem;
             background-color: #fff;
             .border-radius(.16rem);
             .flexc {

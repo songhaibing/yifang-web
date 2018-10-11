@@ -9,7 +9,11 @@ export default new Router({
   routes: [
     { // 首页
       path: '/', name: 'Index', 
-      component: resolve => require(['@/view/index/index'], resolve) 
+      component: resolve => require(['@/view/index/index'], resolve),
+      meta: {
+        keepAlive: true,
+        isUseCache: false // 第一次进入刷新数据，后续进入缓存数据
+      }
     },
     { // 个人中心
       path: '/user/user', name: 'User', 
@@ -62,13 +66,13 @@ export default new Router({
       component: resolve => require(['@/view/store/detail'], resolve)
     },
     { // 我的订单
-      path: '/order/order/:type', name: 'Order', 
+      path: '/order/order/:type', name: 'Order',
       component: resolve => require(['@/view/order/order'], resolve),
       meta: {
         needLogin: true,
         keepAlive: true,
         isUseCache: false // 第一次进入刷新数据，后续进入缓存数据
-      } 
+      }
     },
     { // 订单详情
       path: '/order/detail', name: 'OrderDetail', 
@@ -117,7 +121,7 @@ export default new Router({
     },
     { // 我的评价
       path: '/evaluation/myEvaluation', name: 'MyEvaluation', 
-      component: resolve => require(['@/view/evaluation/myEvaluation'], resolve) 
+      component: resolve => require(['@/view/evaluation/myEvaluation'], resolve)
     },
     { // 购物车
       path: '/shopCar', name: 'ShopCar', 

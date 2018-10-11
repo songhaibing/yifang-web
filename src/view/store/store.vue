@@ -192,7 +192,7 @@ export default {
     },
     beforeRouteLeave (to, from, next) {
         // 如果前往商品详情或者店铺详情则缓存数据
-        if (to.name === 'StoreDetail') {
+        if (to.name === 'StoreDetail' || to.name === 'PlaceOrder') {
             from.meta.isUseCache = true;
         }
         next();
@@ -224,6 +224,10 @@ export default {
         }
         if(!u_Reg(this.againPassword,'notEmpty')){
           this.$Tip('请再次输入密码！')
+          return
+        }
+        if(this.zcpassword !== this.againPassword ){
+          this.$Tip('密码不一致！')
           return
         }
         // 提交数据
@@ -456,9 +460,13 @@ export default {
           this.$Tip('请确认新密码！')
           return
         }
+        if(this.newPassword !== this.czpassword){
+          this.$Tip('密码不一致！')
+          return
+        }
         // 提交数据
         this.isSubmitDataisSubmitData = false;
-        this.$api.user.bindPhone({
+        this.$api.user.resetPassword({
           mobile: this.czphone,
           password: this.czpassword,
           qrpassword:this.newPassword,

@@ -71,7 +71,6 @@ export default {
     },
 
     methods: {
-        
          // 选择上传图片
           onImgSelecet (file) {
               console.log(file);
@@ -95,11 +94,7 @@ export default {
                         this.$Tip('图片上传失败，请重试');
                     }
                 })
-                
-                // console.log(this.imgList);
             },
-           
-
             // 删除选中的图片
             deleteImg (i) {
                 this.imgList.splice(i, 1);

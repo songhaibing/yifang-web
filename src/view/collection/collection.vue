@@ -99,7 +99,6 @@ export default {
             this.page ++;
             this.nowindex = this.$route.params.type;
             this.getData(this.nowindex);
-
         },
         // 获取数据函数
         getData (type) {

@@ -93,7 +93,7 @@ export default {
     data () {
         return {
             text:true,
-            nowindex:0,
+            nowindex:1,
             tabs:[
                 {title:'全部',type:1},
                 {title:'待付款',type:2},
@@ -122,12 +122,13 @@ export default {
             this.page = 0;
             // 获取数据
             this.onLoad();
+
         }
         this.$route.meta.isUseCache = false;
     },
     beforeRouteLeave (to, from, next) {
         // 如果前往商品详情或者店铺详情则缓存数据
-        if (to.name === 'OrderDetail') {
+        if (to.name === 'OrderDetail' || to.name === 'MyEvaluation' || to.name ===  'Evaluation') {
             from.meta.isUseCache = true;
         }
         next();
@@ -136,9 +137,15 @@ export default {
         onLoad () {
             this.loading = true;
             this.page ++;
-            this.nowindex = this.$route.params.type;
+          //   let type = this.$route.params.type;
+          //   this.nowindex = type?type:this.$route.query.type;
+          // type&&(this.nowindex = type);
+            if(this.$route.params.type){
+              this.nowindex = this.$route.params.type;
+            }else{
+              this.nowindex = this.$route.query.type;
+            }
             this.getData(this.nowindex);
-
         },
         // 获取数据函数
         getData (type) {
@@ -148,7 +155,6 @@ export default {
                 key:localStorage.getItem('access_token'),
                 type:type
             }).then(res=> {
-                console.log(res.data);
                 this.loading = false;
                 // 更新列表数据
                 this.orders = [...this.orders, ...res.data.order];
@@ -178,7 +184,6 @@ export default {
             this.delOrCan = type;
             this.id = id;
             this.nowNum = index;
-            console.log(this.id);
         },
          // 取消退出
         cancel () {
@@ -211,7 +216,6 @@ export default {
                     order_id:this.id
                 }).then(res => {
                     this.orders = [];
-                    console.log(res.data);
                     this.$Tip('确认收货成功');
                     this.getData(this.nowindex);
                 })
@@ -233,7 +237,6 @@ export default {
         },
         // 调起微信支付弹窗
         awakenWXPay (config) {
-            console.log(config);
             this.loading = true;
             WeixinJSBridge.invoke(
                 'getBrandWCPayRequest', {
@@ -245,7 +248,6 @@ export default {
                     "paySign": config.paySign //微信签名
                 }, 
                 res => {
-                    console.log(res);
                     if(res.err_msg == "get_brand_wcpay_request:ok" ) {
                         this.loading = false;                            
                         // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。

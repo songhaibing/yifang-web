@@ -65,6 +65,7 @@ if (isbind) {
 
 if (isCode) {
   const code = href.split('code=')[1].split('&state')[0];
+  localStorage.setItem('code',code)
   // 拿到jscode后，走登录流程
   api.user.login({ 
     code: code

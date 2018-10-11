@@ -67,6 +67,7 @@ const user = {
   registered (params) {
     return axios.post(`${base.portSRC}/app.php?m=App&c=index&a=reg`, qs.stringify(params));
   },
+  //重置密码
   resetPassword (params) {
     return axios.post(`${base.portSRC}/app.php?m=App&c=index&a=forget_pw`, qs.stringify(params));
   },

@@ -15,14 +15,18 @@
   <body>
     <div id="app"></div>
     <script>
-      // const access_token = localStorage.getItem('access_token');
-      // const isCode = window.location.href.indexOf('code=') !== -1;
-      // // 如果未登陆过且没有拿到code值，则请求微信接口获取code
-      // if (!access_token && !isCode) {
-      //   const current = window.location.href.split('/#')[0];
-      //   const target = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx31faa362702a0d17&redirect_uri=http://admin.101yi.cn&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
-      //   window.location.href = target;
-      // }
+        let ua = window.navigator.userAgent.toLowerCase();
+        if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+          const access_token = localStorage.getItem('access_token');
+          const isCode = window.location.href.indexOf('code=') !== -1;
+          // 如果未登陆过且没有拿到code值，则请求微信接口获取code
+          if (!access_token && !isCode) {
+            const current = window.location.href.split('/#')[0];
+            const target = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx31faa362702a0d17&redirect_uri=http://admin.101yi.cn&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
+            window.location.href = target;
+          }
+        }else{
+      }
   </script> 
     <script src="https://cdn.bootcss.com/vConsole/3.2.0/vconsole.min.js"></script>
     <script>

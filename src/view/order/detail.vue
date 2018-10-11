@@ -46,7 +46,7 @@
             </div>
         </div>
         <!-- 物流信息 -->
-        <router-link to="" class="van-hairline--bottom jus-b ali-c logistics">
+        <router-link  :to="'/logistics?id='+id"  class="van-hairline--bottom jus-b ali-c logistics">
             <div class="ali-c flex">
                 <div class="car-img"><img src="@/assets/logistic-car-ico.png" alt="" class="fill"></div>
                 <div class="text">物流：{{mess}}</div>
