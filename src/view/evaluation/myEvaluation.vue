@@ -28,7 +28,7 @@ export default {
     data () {
         return {
             text:true,//头部文字显示
-            token:'DprCuAQois6jLlI',//固定假的token
+            // token:'DprCuAQois6jLlI',//固定假的token
             data:{},//我的评价数据
             imgs:{},//上传图片数组
             userIfor:{},//评价用户信息
@@ -39,8 +39,8 @@ export default {
         this.$Loading('评价加载中');
         this.$api.order.myEvaluate ({
             order_id:this.$route.query.id,
-            key:this.token
-        }).then(res => {
+            key: localStorage.getItem('access_token')
+    }).then(res => {
             this.data =res.data.comment;
             this.imgs = res.data.comment.img;
             this.userIfor = res.data.comment.member;

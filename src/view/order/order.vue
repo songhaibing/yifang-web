@@ -232,7 +232,13 @@ export default {
                 dingdan: orderNumber,
                 totalprices: orderPrice
             }).then(res => {
-                this.awakenWXPay(res.data.data);
+              // 微信浏览器走微信公众号支付，非微信浏览器走h5支付
+              let ua = window.navigator.userAgent.toLowerCase();
+              if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+                this.awakenWXPay(res.data);
+              }else{
+                window.location.href=res.data.data.mweb_url
+              }
             })
         },
         // 调起微信支付弹窗
@@ -243,7 +249,7 @@ export default {
                     "appId": config.appId,     //公众号名称，由商户传入
                     "timeStamp": config.timeStamp,         //时间戳，自1970年以来的秒数
                     "nonceStr": config.nonceStr, //随机串
-                    "package": config.package,
+                    "package": config.packages,
                     "signType": "MD5",         //微信签名方式：
                     "paySign": config.paySign //微信签名
                 }, 

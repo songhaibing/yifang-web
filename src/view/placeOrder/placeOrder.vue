@@ -301,8 +301,14 @@ import state from '@/store'
                         dingdan: this.orderNum,
                         totalprices: this.totalprices,
                     }).then(res => {
-                      this.qrImg = res.data.pay
-                        this.awakenWXPay(res.data.data);
+                       // this.qrImg = res.data.pay;
+                      // 微信浏览器走微信公众号支付，非微信浏览器走h5支付
+                      let ua = window.navigator.userAgent.toLowerCase();
+                      if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+                        this.awakenWXPay(res.data);
+                      }else{
+                        window.location.href=res.data.data.mweb_url
+                      }
                     })
                 }).catch(err => {
                     this.$Tip('提交失败，请刷新重试')
@@ -317,14 +323,15 @@ import state from '@/store'
                         "appId": config.appId,     //公众号名称，由商户传入
                         "timeStamp": config.timeStamp,         //时间戳，自1970年以来的秒数
                         "nonceStr": config.nonceStr, //随机串
-                        "package": config.package,
+                        "package": config.packages,
                         "signType": "MD5",         //微信签名方式：
                         "paySign": config.paySign //微信签名
                     }, 
                     res => {
+                      console.log(1111);
                         console.log(res);
                         if(res.err_msg == "get_brand_wcpay_request:ok" ) {
-                            this.loading = false;                            
+                            this.loading = false;
                             // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
                                 this.$router.replace({
                                     path: '/order/detail',

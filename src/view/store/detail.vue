@@ -27,7 +27,7 @@
             <!-- 分享/点赞 -->
             <div class="jus-e van-hairline--bottom">
                 <div class="flex ali-c">
-                    <div class="share"></div>
+                    <!--<div class="share"></div>-->
                     <div class="like" :class="{on:isCollect}" @click="isLike"></div>
                 </div>
             </div>

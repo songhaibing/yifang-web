@@ -107,21 +107,10 @@ export default {
         })
     },
 
-
     methods: {
-      // onRead(e){
-      //   this.avatarImg =e.content
-      //   this.$Loading('头像修改中');
-      //   this.$api.user.modifyInfo({
-      //     key:localStorage.getItem('access_token'),
-      //     type:2,
-      //     name:this.avatarImg
-      //   }).then(res => {
-      //     this.$toast.clear();
-      //     this.$Tip('头像修改成功');
-      //   });
-      // },
+      //拍照或者相册上传图片
       onRead (file) {
+        console.log(file)
         this.$Loading('头像修改中');
         let param = new FormData(); //创建form对象
         param.append('images', file.file, file.file.name);//通过append向form对象添加数据
@@ -130,11 +119,10 @@ export default {
           console.log(res);
           if (res.status === 1) {
             this.infoImg = file.content;
-            this.imgName = res.data.result[0].name;
             this.$api.user.modifyInfo({
               key:localStorage.getItem('access_token'),
               type:2,
-              name: this.imgName
+              name:res.data.result[0].save_path + res.data.result[0].save_name
             }).then(res => {
               this.$Tip('头像修改成功');
               this.closeImg=false;
