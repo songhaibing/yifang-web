@@ -35,6 +35,16 @@ const store = {
     collect (params) {
         return axios.get(`${base.portSRC}/app.php?m=App&c=Member&a=collect&key=${params.key}&type=${params.type}&size=${params.size}&page=${params.page}`)
     },
+   //收藏文章详情
+  collectDeilt(params) {
+    return axios.get( `${base.portSRC}/app.php?m=App&c=News&a=article&key=${params.key}&article_id=${params.article_id}`);
+
+  },
+  // 收藏商品详情
+  commodity(params) {
+    return axios.get( `${base.portSRC}/app.php?m=App&c=Item&a=item_details&key=${params.key}&item_id=${params.item_id}`);
+
+  },
     // 删除收藏   
     delCollect (params) {        
         return axios.get(`${base.portSRC}/app.php?m=App&c=Member&a=del_collect&collect_id=${params.id}&key=${params.key}`);   

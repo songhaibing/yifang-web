@@ -135,6 +135,7 @@ import state from '@/store'
         },
         created () {
             this.type = this.$route.query.type;
+
       },
         filters: {
             fixed2 (val) {
@@ -149,7 +150,7 @@ import state from '@/store'
         beforeRouteEnter (to, from, next) {
             const querys = to.query;
             // 如果是从地址页面或者添加地址页面返回，则使用缓存数据并读取sesstionStorage的地址数据
-            if (from.name === 'Address' || from.name === 'NewAddress') {
+            if (from.name === 'Address' || from.name === 'NewAddress' ) {
                 const addressSelected = sessionStorage.getItem('addressSelected');
                 next(vm => {
                     addressSelected && (vm.addressInfo = JSON.parse(addressSelected), vm.addressEmpty = true);
@@ -197,6 +198,11 @@ import state from '@/store'
           if(sessionStorage.getItem('addressSelected') == null){
             this.onLoad()
           }
+          // this.$api.store.myAddress({
+          //   key:localStorage.getItem('access_token'),
+          // }).then(res => {
+          //   this.addressInfo.id = res.data.list[0].id
+          // })
           this.type = this.$route.query.type;// 这是我们获取数据的函数
         }
         // 通过这个控制刷新
@@ -281,15 +287,15 @@ import state from '@/store'
             confirmOrderPay () {
                 order.confirmOrder({
                     key:localStorage.getItem('access_token'),
-                    address_id:this.addressInfo.id,
                     cart_id:this.$route.query.cart_id,
                     item_id:this.$route.query.item_id,
                     is_bill:this.infoType,
+                    address_id: this.addressInfo.id,
                     bill_cate:this.billCate,
                     bill_mes:this.invoice,
                     memos:this.leaveWord,
                     yunfei:this.freight,
-                    totalprices:this.totalprices
+                    totalprices:this.totalprices,
                 }).then(res => {
                   if(res.status==0){
                     this.$Tip(res.msg)
@@ -302,11 +308,19 @@ import state from '@/store'
                         dingdan: this.orderNum,
                         totalprices: this.totalprices,
                     }).then(res => {
-                       // this.qrImg = res.data.pay;
                       // 微信浏览器走微信公众号支付，非微信浏览器走h5支付
                       let ua = window.navigator.userAgent.toLowerCase();
                       if(ua.match(/MicroMessenger/i) == 'micromessenger'){
-                        this.awakenWXPay(res.data);
+                        if (typeof WeixinJSBridge == "undefined"){
+                          if( document.addEventListener ){
+                            document.addEventListener('WeixinJSBridgeReady',awakenWXPay, false);
+                          }else if (document.attachEvent){
+                            document.attachEvent('WeixinJSBridgeReady', awakenWXPay);
+                            document.attachEvent('onWeixinJSBridgeReady',awakenWXPay);
+                          }
+                        }else{
+                          this.awakenWXPay(res.data);
+                        }
                       }else{
                         window.location.href=res.data.data.mweb_url
                       }
@@ -317,20 +331,20 @@ import state from '@/store'
             },
             // 调起微信支付弹窗
             awakenWXPay (config) {
-                this.loading = true;
                 WeixinJSBridge.invoke(
                     'getBrandWCPayRequest', {
                         "appId": config.appId,     //公众号名称，由商户传入
                         "timeStamp": config.timeStamp,         //时间戳，自1970年以来的秒数
                         "nonceStr": config.nonceStr, //随机串
                         "package": config.packages,
-                        "signType": "MD5",         //微信签名方式：
+                        "signType": config.signType,         //微信签名方式：
                         "paySign": config.paySign //微信签名
                     }, 
                     res => {
+                      console.log(res);
                         if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+                          WeixinJSBridge.call('closeWindow')
                           console.log('支付成功')
-                            this.loading = false;
                             // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
                                 this.$router.replace({
                                     path: '/order/detail',
@@ -339,11 +353,12 @@ import state from '@/store'
                                     }
                                 });
                         } else if (res.err_msg == "get_brand_wcpay_request:cancel"){
-                            this.loading = false;
                         }
                     }
+
                 );
             }
+
         }
     }
 </script>

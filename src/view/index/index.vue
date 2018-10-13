@@ -125,7 +125,8 @@
 import { u_Reg } from '@/config/utils';
 import { mapMutations } from 'vuex';
 import { Toast } from 'vant';
-import store from '@/store/index'
+import store from '@/store/index';
+import api from '@/api' // 导入api接口
 export default {
     name:'Index',
     data () {
@@ -174,6 +175,44 @@ export default {
         message: '加载中...'
       });
       this.getIndex()
+      /**
+       * 进入前先检测本地token，存在则更新vuex中的token
+       */
+      const access_token = localStorage.getItem('access_token');
+      const isbind = localStorage.getItem('isbind');
+      const href = window.location.href;
+      const isCode = href.indexOf('code=') !== -1;
+// 如果本地存储了access_token，直接更新vuex
+      if (access_token) {
+        store.commit('loginSuccess', access_token);
+      }
+// 如果本地存储了isbind，直接更新vuex
+      if (isbind) {
+        store.commit('bindSuccess', isbind);
+      }
+
+      if (isCode) {
+        const code = href.split('code=')[1].split('&state')[0];
+        console.log(code)
+        // 拿到jscode后，走登录流程
+        api.user.login({
+          code: code
+        }).then(res => {
+          if (res.status == 1) {
+            console.log(res);
+            // 存token
+            const access_token = res.data.key;
+            localStorage.setItem('access_token', access_token);
+            localStorage.setItem('isbind',1);
+            store.commit('loginSuccess', access_token);
+            store.commit('bindSuccess', 1);
+          }else {
+            // this.$Tip('您还不是会员哦');
+          }
+        }).catch(err => {
+          console.log(err);
+        })
+      };
     },
     methods: {
         ...mapMutations([

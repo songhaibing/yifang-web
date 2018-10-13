@@ -111,6 +111,15 @@ export default new Router({
         isUseCache: false // 第一次进入刷新数据，后续进入缓存数据
       } 
     },
+    { // 阅读详情
+      path: '/collection/detail/:id', name: 'collectionDetail',
+      component: resolve => require(['@/view/collection/detail'], resolve),
+    },
+    //商品详情
+    {
+      path: '/collection/commodity/:id', name: 'commodity',
+      component: resolve => require(['@/view/collection/commodity'], resolve),
+    },
     { // 评价页
       path: '/evaluation/evaluation', name: 'Evaluation', 
       component: resolve => require(['@/view/evaluation/evaluation'], resolve) 

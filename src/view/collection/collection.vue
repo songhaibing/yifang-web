@@ -22,9 +22,12 @@
                 <div class="left-img"></div>
                 <div class="van-hairline--bottom ali-c collection-item flex1 jus-b">
                     <div class="flex ali-c">
-                        <router-link to="/collection/detail" class="jus-b ciem ali-c">
-                            <p class="oneline">{{items.title}}</p>
-                        </router-link>
+                        <!--<router-link to="/collection/detail" class="jus-b ciem ali-c">-->
+                            <!--<p class="oneline">{{items.title}}</p>-->
+                        <!--</router-link>-->
+                      <div @click="jump(items.item_id)" class="jus-b ciem ali-c">
+                      <p class="oneline">{{items.title}}</p>
+                      </div>
                     </div>
                     <!-- 管理选项 -->
                     <div class="cir-ico" :class="{on:items.isSelect}" @click="admincollection(index)" v-if="setClose == false"></div>
@@ -94,6 +97,19 @@ export default {
         next();
     },
     methods: {
+        jump(id){
+          if(this.$route.params.type == 1){
+            console.log(id)
+            this.$router.push({
+              path: `/collection/detail/${id}`,
+            })
+          }else {
+            this.$router.push({
+              path: `/collection/commodity/${id}`,
+            })
+          }
+
+        },
         onLoad () {
             this.loading = true;
             this.page ++;

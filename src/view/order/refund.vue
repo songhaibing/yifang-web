@@ -73,7 +73,6 @@ export default {
     data () {
         return {
             text:true,//head默认文字
-            token:'DprCuAQois6jLlI',//固定假的token
             refundData:'',//数据
             order:'',//总价
             refundType:0,//索引初始值
@@ -93,7 +92,7 @@ export default {
     },
     created () {
         this.$api.order.refund({
-            key:this.token,
+            key:localStorage.getItem('access_token'),
             order_id:this.$route.query.id
             }).then(res => {
             console.log(res);
@@ -117,7 +116,7 @@ export default {
         },
         submission () {
             this.$api.order.placeOrder({
-                key:this.token,
+                key:localStorage.getItem('access_token'),
                 order_id:this.$route.query.id,
                 memos:this.reason,
                 state:this.explain,
