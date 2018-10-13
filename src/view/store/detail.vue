@@ -44,7 +44,8 @@
         <footer class="foot jus-e ali-c">
             <div class="btn flex">
                 <div class="add-car ali-c" @click="addCart">加入购物车</div>
-                <router-link :to="'/PlaceOrder/PlaceOrder?type=2&item_id='+id" class="go-buy ali-c">立即购买</router-link>
+                <router-link  v-if="isbind==1" :to="'/PlaceOrder/PlaceOrder?type=2&item_id='+id" class="go-buy ali-c">立即购买</router-link>
+                <div @click="buyNow" v-else class="go-buy ali-c">立即购买</div>
             </div>
         </footer>
     </div>  
@@ -61,6 +62,7 @@ export default {
             isCollect:false,//是否收藏
             host:'http://101yi.cn/data/attachment/item/',//图片路径前缀
             id:'',//商品id
+            isbind:localStorage.getItem('isbind')
         }
     },
     created () {
@@ -110,6 +112,10 @@ export default {
                 })
             }
         },
+      //立即购买
+      buyNow(){
+        this.$Tip('请先登录');
+      },
         // 返回上一页
         back() {
             //如果是从删除或取消订单操作跳转的路径减2

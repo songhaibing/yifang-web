@@ -65,9 +65,9 @@ if (isbind) {
 
 if (isCode) {
   const code = href.split('code=')[1].split('&state')[0];
-  localStorage.setItem('code',code)
+  console.log(code)
   // 拿到jscode后，走登录流程
-  api.user.login({ 
+  api.user.login({
     code: code
   }).then(res => {
       if (res.status == 1) {

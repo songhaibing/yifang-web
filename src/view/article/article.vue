@@ -21,6 +21,7 @@
             <!-- 标题 -->
             <h1 class="title-one">{{detail.en_title}}</h1>
             <h2 class="title-two">{{detail.title}}</h2>
+           <img :src="detail.img">
             <p v-html="info"></p>
 
             <!-- 分享/点赞 -->

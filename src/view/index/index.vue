@@ -124,6 +124,7 @@
 <script>
 import { u_Reg } from '@/config/utils';
 import { mapMutations } from 'vuex';
+import { Toast } from 'vant';
 import store from '@/store/index'
 export default {
     name:'Index',
@@ -159,14 +160,19 @@ export default {
            registeredModel:false//控制注册成功model显示与隐藏
         }
     },
-  beforeRouteLeave (to, from, next) {
-    // 如果前往商品详情或者店铺详情则缓存数据
-    if (to.name === 'articleDetail') {
-      from.meta.isUseCache = true;
-    }
-    next();
-  },
+  // beforeRouteLeave (to, from, next) {
+  //   // 如果前往商品详情或者店铺详情则缓存数据
+  //   if (to.name === 'articleDetail') {
+  //     from.meta.isUseCache = true;
+  //   }
+  //   next();
+  // },
     created () {
+      Toast.loading({
+        forbidClick: true,
+        duration: 15000,
+        message: '加载中...'
+      });
       this.getIndex()
     },
     methods: {
@@ -175,21 +181,22 @@ export default {
 		]),
       //加载首页数据
       getIndex() {
-        this.$Loading('加载中');
         this.$api.user.index().then(res => {
           this.article = res.data.article;
           this.flink = res.data.flink;
           this.store = res.data.item;
           this.about = res.data.about;
         })
-        this.$toast.clear();
+       setTimeout(()=>{
+         this.$toast.clear();
+        },100)
       },
       //注册成功之后登录
       sign () {
         if (! this.preventDuplication) return;
         this.$api.user.bindPhone({
           mobile: this.zcphone,
-          password: this.zcpassword
+          password: this.zcpassword,
         }).then((res)=>{
           if(res.status==0){
             this.$Tip(res.msg);
@@ -362,7 +369,7 @@ export default {
             this.isSubmitDataisSubmitData = false;
             this.$api.user.bindPhone({
                 mobile: this.dlphone,
-                password: this.dlpassword
+                password: this.dlpassword,
             }).then((res)=>{
               if(res.status==0){
                 this.$Tip(res.msg);

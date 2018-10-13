@@ -21,6 +21,7 @@
       <!-- 标题 -->
       <h1 class="title-one">{{relevant.en_title}}</h1>
       <h2 class="title-two">{{relevant.title}}</h2>
+      <img :src="relevant.img">
       <p v-html="xqInfo"></p>
 
       <!-- 分享/点赞 -->

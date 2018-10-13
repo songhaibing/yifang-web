@@ -26,7 +26,8 @@
                     <div class="goods-img"><router-link :to="'/store/detail/'+item.id+'?key=DprCuAQois6jLlI'"><img :src="host+item.img" alt="" class="fill"></router-link></div>
                     <div class="jus-b">
                         <div class="flexc add-car" @click="addCart(item.id)">加购</div>
-                        <router-link :to="'/PlaceOrder/PlaceOrder?type=2&item_id='+item.id" class="flexc go-buy">立即购买</router-link>
+                        <router-link  v-if="isbind==1"  :to="'/PlaceOrder/PlaceOrder?type=2&item_id='+item.id" class="flexc go-buy">立即购买</router-link>
+                        <div  @click="buyNow"  v-else class="flexc go-buy">立即购买</div>
                     </div>
                     <div class="goods-msg ">{{item.title}}</div>
                 </div>
@@ -174,6 +175,7 @@ export default {
            czSubmitData:true,
           registeredModel:false,//控制注册成功model显示与隐藏
           preventDuplication:true,
+          isbind:localStorage.getItem('isbind')
         }
     },
 
@@ -383,6 +385,10 @@ export default {
             }
             
         },
+      // 立即购买
+      buyNow (){
+        this.$Tip('请先登录');
+      },
       // 绑定手机号-提交数据
       submitData () {
         // 防止重复提交
