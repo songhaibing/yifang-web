@@ -135,7 +135,9 @@ import state from '@/store'
         },
         created () {
             this.type = this.$route.query.type;
-
+          // if(sessionStorage.getItem('addressSelected') == null){
+          //   this.onLoad()
+          // }
       },
         filters: {
             fixed2 (val) {
@@ -150,7 +152,7 @@ import state from '@/store'
         beforeRouteEnter (to, from, next) {
             const querys = to.query;
             // 如果是从地址页面或者添加地址页面返回，则使用缓存数据并读取sesstionStorage的地址数据
-            if (from.name === 'Address' || from.name === 'NewAddress' ) {
+            if (from.name === 'Address'  ) {
                 const addressSelected = sessionStorage.getItem('addressSelected');
                 next(vm => {
                     addressSelected && (vm.addressInfo = JSON.parse(addressSelected), vm.addressEmpty = true);
@@ -198,11 +200,9 @@ import state from '@/store'
           if(sessionStorage.getItem('addressSelected') == null){
             this.onLoad()
           }
-          // this.$api.store.myAddress({
-          //   key:localStorage.getItem('access_token'),
-          // }).then(res => {
-          //   this.addressInfo.id = res.data.list[0].id
-          // })
+          if(localStorage.getItem('price')){
+            this.coupon=true
+          }
           this.type = this.$route.query.type;// 这是我们获取数据的函数
         }
         // 通过这个控制刷新
@@ -242,11 +242,13 @@ import state from '@/store'
           //优惠券按钮切换
           swichTab(){
             if(this.coupon){
-              localStorage.setItem('price',this.price)
-              this.totalprices=this.totalprices - localStorage.getItem('price')
+              localStorage.setItem('price',this.price);
+              this.totalprices=this.totalprices - localStorage.getItem('price');
             }else{
-              localStorage.setItem('price', this.price)
-              this.totalprices=this.totalprices + (+localStorage.getItem('price'))
+              localStorage.setItem('price', this.price);
+              this.totalprices=this.totalprices + (+localStorage.getItem('price'));
+              localStorage.removeItem('price')
+              localStorage.removeItem("coupon_id")
             }
           },
             // 渲染下单的页面数据
@@ -296,6 +298,8 @@ import state from '@/store'
                     memos:this.leaveWord,
                     yunfei:this.freight,
                     totalprices:this.totalprices,
+                    coupon_id:localStorage.getItem("coupon_id"),
+                   coupon_price:localStorage.getItem("price")
                 }).then(res => {
                   if(res.status==0){
                     this.$Tip(res.msg)

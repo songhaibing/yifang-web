@@ -6,15 +6,15 @@
         <!-- 订单状态 -->
         <div class="state ali-c">
             <!-- 退款成功 -->
-            <div class="text ali-c" v-if="detail.refund == 9">
+            <div class="text ali-c" v-if="detail.status == 9">
                 <div class="words">退款成功</div>
             </div>
              <!-- 退款中 -->
-            <div class="text ali-c" v-if="detail.refund == 7">
+            <div class="text ali-c" v-if="detail.status == 7">
                 <div class="words">退款中</div>
             </div>
              <!-- 退款失败 -->
-            <div class="text ali-c" v-if="detail.refund == 8">
+            <div class="text ali-c" v-if="detail.status == 8">
                 <div class="words">退款失败</div>
             </div>
             <!-- 交易成功 -->

@@ -27,7 +27,9 @@
             <div class="states jus-e ali-c" v-if="order.status == 4">待评价</div>
             <div class="states jus-e ali-c" v-if="order.status == 5">已评价</div>
             <div class="states jus-e ali-c" v-if="order.status == 6">已取消</div>
-
+           <div class="states jus-e ali-c" v-if="order.status == 7">退款中</div>
+           <div class="states jus-e ali-c" v-if="order.status == 8">拒绝退款</div>
+           <div class="states jus-e ali-c" v-if="order.status == 9">已退款</div>
             <router-link :to="'/order/detail?id='+order.id+'&type='+nowindex" class="msg flex ali-c" v-for="(goods,index) in order.list" :key="index">
                 <div class="goods-img ali-c"><img :src="host+goods.img" alt=""></div>
                 <div class="text-detail flex1">
@@ -112,11 +114,13 @@ export default {
             host:'http://101yi.cn/data/attachment/item/',//图片路径前缀
         }
     },
+  created () {
+    this.onLoad();
+  },
     activated () {
         // isUseCache为false才重新刷新获取数据
         // 因为对list使用keep-alive来缓存组件，所以默认是会使用缓存数据的         
-        if(!this.$route.meta.isUseCache){            
-            
+        if(!this.$route.meta.isUseCache){
             this.orders = [];
             this.finished = false;
             this.page = 0;
@@ -128,7 +132,7 @@ export default {
     },
     beforeRouteLeave (to, from, next) {
         // 如果前往商品详情或者店铺详情则缓存数据
-        if (to.name === 'OrderDetail' || to.name === 'MyEvaluation' || to.name ===  'Evaluation') {
+        if ( to.name === 'MyEvaluation' || to.name ===  'Evaluation') {
             from.meta.isUseCache = true;
         }
         next();
@@ -137,9 +141,6 @@ export default {
         onLoad () {
             this.loading = true;
             this.page ++;
-          //   let type = this.$route.params.type;
-          //   this.nowindex = type?type:this.$route.query.type;
-          // type&&(this.nowindex = type);
             if(this.$route.params.type){
               this.nowindex = this.$route.params.type;
             }else{

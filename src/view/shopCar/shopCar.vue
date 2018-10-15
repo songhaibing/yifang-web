@@ -5,8 +5,8 @@
             <div @click="adminShop">管理</div>
         </pub-head>
        <ul class="shop-car-list">
-           <li class="goods ali-c flex" v-for="(item,index) in cartData" :key="index">
-               <div class="cir-ico" :class="{on:item.isSelect}" @click="closeShop(index)" v-if="item.status == 1"></div>
+           <li class="goods ali-c flex" v-for="(item,index) in cartData" :key="index" @click="closeShop(index)">
+               <div class="cir-ico" :class="{on:item.isSelect}"  v-if="item.status == 1"></div>
                <div class="goods-img"><img :src="host+item.img" alt="" class="fill"></div>
                <div class="goods-text flex1">
                    <div class="title">{{item.title}}</div>

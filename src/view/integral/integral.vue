@@ -38,7 +38,7 @@
                       <div class="btn flexc off" v-else>积分不足</div>
                     </div>
                     <div v-if="nowindex == 2 || nowindex == 3">
-                        <div class="btn flexc" v-if="item.status == 0" @click="useImmediately(item.price)">立即使用</div>
+                        <div class="btn flexc" v-if="item.status == 0" @click="useImmediately(item.price,item.id)">立即使用</div>
                         <div class="btn flexc off" v-if="item.status == 1">已使用</div>
                         <div class="btn flexc off" v-if="item.status == 2">已过期</div>
                     </div>
@@ -156,10 +156,11 @@ import list from '@/components/listLoad/listLoad';
                 }
                 
             },
-          useImmediately (e){
+          useImmediately (e,index){
               console.log(parseInt(e))
               this.num = parseInt(e)
               this.$router.push("/store/store")
+              localStorage.setItem("coupon_id",index)
               localStorage.setItem("price", this.num)
           },
             // 点击签到弹框

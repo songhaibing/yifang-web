@@ -120,6 +120,11 @@ export default {
                 this.info.city = res.data.list.city;
                 this.info.country = res.data.list.county;
                 this.info.detail = res.data.list.address;
+                if(res.data.list.status == 1){
+                  this.checked=true
+                }else {
+                  this.checked=false
+                }
                 this.$toast.clear();
             })
         }
