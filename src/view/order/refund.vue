@@ -151,16 +151,13 @@ export default {
             margin-left: .3rem;
             .goods-name {
                 width: 5.14rem;
-                font-size: .26rem;
                 line-height: .4rem;
                 color: #333;
             }
             .price {
-                font-size: .3rem;
                 color: #242323;
             }
             .order-num {
-                font-size: .28rem;
                 color: #a7a7a7;
             }
         }
@@ -170,11 +167,9 @@ export default {
         .set-up {
             height: 1.22rem;
             padding: 0 .3rem;
-            font-size: .32rem; 
             color: #0d0d0d;
             .right {
                 span {
-                    font-size: .32rem;
                     color: #666;
                 }
             }
@@ -184,7 +179,6 @@ export default {
                 margin-left: .3rem;
             }
             .refund-price {
-                font-size: .36rem;
                 color: @main-cor;
             }
             input {
@@ -213,7 +207,6 @@ export default {
             background-color: #fff;
             h2 {
                 height: 1.42rem;
-                font-size: .36rem;
             }
             .paytype-list {
                 background: #fff;
@@ -221,7 +214,6 @@ export default {
                 min-height: 3.14rem;
                 li {
                     height: 1rem;
-                    font-size: .28rem;
                     .pay-ico {
                         width: .4rem;
                         margin-right: .2rem;
@@ -259,7 +251,6 @@ export default {
             max-width: 750px;
             background-color: @main-cor;
             color: #fff;
-            font-size: .32rem;
         }
 </style>
 

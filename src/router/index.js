@@ -10,10 +10,6 @@ export default new Router({
     { // 首页
       path: '/', name: 'Index', 
       component: resolve => require(['@/view/index/index'], resolve),
-      // meta: {
-      //   keepAlive: true,
-      //   isUseCache: false // 第一次进入刷新数据，后续进入缓存数据
-      // }
     },
     { // 个人中心
       path: '/user/user', name: 'User', 

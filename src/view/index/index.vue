@@ -34,7 +34,7 @@
                 <div class="bind-phone"><input type="text" placeholder="请输入账号/手机号" v-model="dlphone"></div>
                 <div class="bind-pw"><input  type="password" placeholder="请输入密码" v-model="dlpassword"></div>
                 <div class="confirm flexc" @click="submitData">登录</div>
-                <div class="pw" @click="goChangePw">忘记密码?</div>
+                <div class="pw"  @click="goChangePw">忘记密码?</div>
               </div>
               <div v-if="type==2">
                 <div class="bind-phone"><input type="text" placeholder="请输入11位手机号" v-model="zcphone"></div>
@@ -46,9 +46,9 @@
                 <div class="bind-pw"><input type="password" placeholder="再次输入密码" v-model="againPassword"></div>
                 <div class="confirm flexc" @click="enrollment">注册</div>
               </div>
-              <div @click="isSelected " class="flexc" >
-                <img class="selectedImg" style="width: .3rem;height: .3rem;margin-top: .3rem;margin-right:0.2rem;clear: both" src="@/assets/selected.png"  v-show="isImg">
-                <img class="selectedImg" style="width: .3rem;height: .3rem;margin-top: .3rem;margin-right:0.2rem;clear: both" src="@/assets/uncheck.png" v-show="!isImg">
+              <div @click="isSelected " class="flexc"  v-if="type==2">
+                <img class="selectedImg" style="width: .3rem;height: .3rem;margin-top: .3rem;margin-right:0.2rem;clear: both" src="@/assets/selected.png"  v-show="!isImg">
+                <img class="selectedImg" style="width: .3rem;height: .3rem;margin-top: .3rem;margin-right:0.2rem;clear: both" src="@/assets/uncheck.png" v-show="isImg">
                 <div class="bottom-font">勾选代表你同意《注册声明》《版权声明》</div>
               </div>
             </div>
@@ -196,7 +196,7 @@ export default {
         console.log(code)
         // 拿到jscode后，走登录流程
         api.user.login({
-          code: code
+          code: code,
         }).then(res => {
           if (res.status == 1) {
             console.log(res);
@@ -577,16 +577,16 @@ export default {
             position: absolute;
             top: 0;
             right: 0;
-            width: .8rem;
-            height: .8rem;
-            font-size: .5rem;
+            width: 1rem;
+            height: 1rem;
+             font-size: .6rem;
             color: #b1b1b1;
         }
        /*.top {*/
          /*padding: .2rem;*/
        /*}*/
        .top-login {
-         font-size: .4rem;
+
        }
        .on{
          color: @main-cor;
@@ -595,12 +595,12 @@ export default {
          text-align: center;
        }
        .top-register {
-         font-size: .4rem;
+
          margin-left: 2.1rem;
        }
         // 提示文字
         .tips {
-            font-size: 0.4rem;
+
             text-align: center;
         }
         // 绑定手机
@@ -612,12 +612,12 @@ export default {
             padding: 0 .3rem;
             margin-top: 1.45rem;
             background:url(~@/assets/account.png) no-repeat .3rem ;
-            .bg-size(.28rem,.46rem);
+            .bg-size(.39rem,.46rem);
             input {
                 width: 6rem;
                 height: .94rem;
                 margin-left: .5rem;
-                font-size: .36rem;
+
             }
         }
        .bind-pw {
@@ -628,12 +628,12 @@ export default {
          padding: 0 .3rem;
          margin-top: .15rem;
          background:url(~@/assets/password.png) no-repeat .3rem ;
-         .bg-size(.28rem,.46rem);
+         .bg-size(.39rem,.46rem);
          input {
            width: 6rem;
            height: .94rem;
            margin-left: .5rem;
-           font-size: .36rem;
+
            border: none;
          }
        }
@@ -647,7 +647,6 @@ export default {
                 border: 1px solid #b1b1b1;
                 border-radius: .1rem;
                 padding-left: .3rem;
-                font-size: .36rem;
                 margin-right: .4rem;
             }
             .send-code {
@@ -655,7 +654,7 @@ export default {
                 height: .96rem;
                 border: 1px solid #18bd1c;
                 border-radius: .1rem;
-                font-size: .36rem;
+
                 color: #18bd1c;
             }
         }
@@ -664,18 +663,17 @@ export default {
             height: 1rem;
             color: #fff;
             background-color: @main-cor;
-            font-size: .4rem;
             border-radius: .04rem;
             margin-top: .76rem;
         }
        .pw {
-         margin-left: 5.5rem;
-         margin-top: .28rem;
+         margin-left: 5.3rem;
+         margin-top: .4rem;
+         color: #818080;
        }
        .bottom-font{
          margin-top: 0.3rem;
          clear: both;
-         font-size:0.19rem ;
          color: #818080;
        }
      }
@@ -695,9 +693,9 @@ export default {
     position: absolute;
     top: 0;
     right: 0;
-    width: .8rem;
-    height: .8rem;
-    font-size: .5rem;
+    width: 1rem;
+    height: 1rem;
+    font-size: .6rem;
     color: #b1b1b1;
   }
   /*.top {*/
@@ -705,7 +703,7 @@ export default {
   /*}*/
   .top-login {
     color: #929292;
-    font-size: .265rem;
+
   }
   .on{
     color: @main-cor;
@@ -715,12 +713,12 @@ export default {
   }
   .top-register {
     color: #929292;
-    font-size: .265rem;
+
     margin-left: 2.1rem;
   }
   // 提示文字
   .tips {
-    font-size: 0.4rem;
+
     text-align: center;
   }
   .selectedImg {
@@ -735,12 +733,12 @@ export default {
     padding: 0 .3rem;
     margin-top: 0.88rem;
     background:url(~@/assets/phone.png) no-repeat .3rem ;
-    .bg-size(.28rem,.46rem);
+    .bg-size(.39rem,.46rem);
     input {
       width: 6rem;
       height: .94rem;
       margin-left: .5rem;
-      font-size: .36rem;
+
     }
   }
   .contain{
@@ -754,17 +752,17 @@ export default {
     padding: 0 .3rem;
     margin-top: .15rem;
     background:url(~@/assets/password.png) no-repeat .3rem ;
-    .bg-size(.28rem,.46rem);
+    .bg-size(.39rem,.46rem);
     input {
       width: 6rem;
       height: .94rem;
       margin-left: .5rem;
-      font-size: .36rem;
+
       border: none;
     }
   }
   .tip-pw{
-    font-size: .2rem;
+
     color: #b7b7b7;
     margin-left: .1rem;
   }
@@ -778,7 +776,7 @@ export default {
       border: 1px solid #b1b1b1;
       border-radius: .1rem;
       padding-left: .3rem;
-      font-size: .36rem;
+
       margin-right: .4rem;
     }
     .send-code {
@@ -786,7 +784,7 @@ export default {
       height: .96rem;
       border: 1px solid #18bd1c;
       border-radius: .1rem;
-      font-size: .36rem;
+
       color: #18bd1c;
     }
   }
@@ -795,13 +793,14 @@ export default {
     height: 1rem;
     color: #fff;
     background-color: @main-cor;
-    font-size: .4rem;
+
     border-radius: .04rem;
     margin-top: .76rem;
   }
   .pw {
     float: right;
     margin-top: .28rem;
+
   }
   .bottom-font{
     clear: both;
@@ -823,9 +822,9 @@ export default {
       position: absolute;
       top: 0;
       right: 0;
-      width: .8rem;
-      height: .8rem;
-      font-size: .5rem;
+      width: 1rem;
+      height: 1rem;
+      font-size: .6rem;
       color: #b1b1b1;
     }
     .registered-tip{
@@ -842,7 +841,7 @@ export default {
       }
       .tip-font{
         margin-left: .3rem;
-        font-size: .23rem;
+
         color: #dd1260;
       }
     }
@@ -853,7 +852,7 @@ export default {
       margin-right: .4rem;
     }
     .description{
-      font-size:.31rem;
+
       color: #dd1260;
       margin-top: .4rem;
     font-weight: bold;
@@ -862,37 +861,37 @@ export default {
       margin-top: .3rem;
       margin-right: .3rem;
       .ordinary{
-        font-size: .27rem;
+
         color: #353434;
         font-weight: bold;
       }
       .ordinary-bold{
-        font-size: .42rem;
+
         color: #dd1260;
         font-weight: bold;
       }
       .bold{
-        font-size: .27rem;
+
         color: #dd1260;
         color: #dd1260;
       }
     }
    .getIntegral{
      color: #dd1260;
-     font-size: .24rem;
+
      font-weight: bold;
      margin-right: 3.3rem;
      margin-top: .3rem;
    }
     .integral{
-      font-size: .18rem;
+
     }
      .confirm {
       width: 100%;
       height: 1rem;
       color: #fff;
       background-color: @main-cor;
-      font-size: .4rem;
+
       border-radius: .04rem;
       margin-top: .76rem;
     }

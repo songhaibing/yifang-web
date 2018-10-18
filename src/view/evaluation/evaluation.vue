@@ -137,7 +137,6 @@ export default {
             height: 1.8rem;
         }
         .text {
-            font-size: .36rem;
             color: #333;
             margin: 0 1rem;
         }

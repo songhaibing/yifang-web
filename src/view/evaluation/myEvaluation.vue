@@ -72,17 +72,14 @@ export default {
             overflow: hidden;
         }
         .user-name {
-            font-size: .46rem;
             color: #333;
         }
     }
     .date {
-        font-size: .28rem;
         color: #666;
         line-height: 1rem;
     }
     .conment {
-        font-size: .34rem;
         color: #333;
         line-height: .6rem;
     }

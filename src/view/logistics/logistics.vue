@@ -66,12 +66,10 @@ import pubHead from '@/components/head/head.vue';
        padding-left: .4rem;
        margin: .4rem auto;
        .type {
-           font-size: .48rem;
            line-height: 1rem;
            color: #fff;
        }
        .order-num {
-           font-size: .3rem;
            color: #fff;
            line-height: .8rem;
        }
@@ -82,7 +80,6 @@ import pubHead from '@/components/head/head.vue';
        .time {
            width: 2rem;
            height: 1rem;
-           font-size: .34rem;
            text-align: center;
            color: #555;
            line-height: .48rem;
@@ -91,12 +88,10 @@ import pubHead from '@/components/head/head.vue';
            margin-left: 1rem;
            height: 2rem;
            h2 {
-               font-size: .38rem;
                color: #333;
                line-height: .6rem;
            }
            .logistics-text {
-               font-size: .3rem;
                line-height: .48rem;
                color: #666;
            }

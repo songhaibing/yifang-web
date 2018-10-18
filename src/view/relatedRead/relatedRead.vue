@@ -166,7 +166,6 @@
       width: 2rem;
       height: .74rem;
       margin-right: .4rem;
-      font-size: .34rem;
       color: #333;
 
     }
@@ -183,13 +182,11 @@
       padding: 1rem .6rem;
       text-align: center;
       .title-one {
-        font-size: .38rem;
         line-height: .6rem;
         color: #282828;
         font-weight: bold;
       }
       .title-two {
-        font-size: .42rem;
         color: #282828;
         line-height: .48rem;
         margin-bottom: .5rem;
@@ -198,7 +195,6 @@
         }
       }
       p {
-        font-size: .32rem;
         line-height: .46rem;
         text-align: left;
         color: #323232;
@@ -235,19 +231,16 @@
     .relevant-article {
       padding: .5rem .4rem;
       .article-xq {
-        font-size: .3rem;
         color: @main-cor;
         margin: 0 .3rem;
       }
       .title {
         margin-top: .3rem;
-        font-size: .38rem;
         line-height: .6rem;
         color: #333;
         font-weight: bold;
       }
       .author {
-        font-size: .32rem;
         color: #777;
       }
       .img {
@@ -255,7 +248,6 @@
         height: 4rem;
       }
       .content {
-        font-size: .34rem;
         color: #777;
         line-height: .5rem;
         &.english {

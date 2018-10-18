@@ -44,7 +44,7 @@
             margin: 0 auto;
             .flexc {
                 width: 2.6rem;
-                font-size: .3rem;
+              font-size: .3rem;
                 color: #fff;
                 .border-radius(.16rem);
                 background-color: #959595;

@@ -31,7 +31,9 @@
                     <div class="text-info">
                         <div class="title">{{item.price}}{{item.title}}</div>
                         <div class="state">下单自动减免</div>
-                        <div class="date">兑换所需积分：{{item.integral}}</div>
+                      <div class="date" v-if="nowindex==1">兑换所需积分:{{item.integral}}</div>
+                      <div class="date" v-if="nowindex==2">{{item.starttime | formats}}-{{item.endtime | formats}}</div>
+                      <div class="date" v-if="nowindex==3">已抵用:{{item.usertime | formats}}</div>
                     </div>
                     <div @click="goExchange(item.id,item.integral)" v-if="nowindex == 1">
                       <div class="btn flexc" v-if="integralNum-0 >= item.integral-0">立即兑换</div>
@@ -74,6 +76,7 @@
 <script>
 import pubHead from '@/components/head/head.vue';
 import list from '@/components/listLoad/listLoad';
+import { u_format } from '@/config/utils'
     export default {
         name:'Integral',
         components: {
@@ -87,7 +90,7 @@ import list from '@/components/listLoad/listLoad';
                 integralText:[
                     {title:'兑换中心',type:1},
                     {title:'已兑换',type:2},
-                    {title:'兑换记录',type:3}
+                    {title:'消费记录',type:3}
                 ],
                 nowindex:0,
                 page:0,  //加载页数
@@ -97,13 +100,19 @@ import list from '@/components/listLoad/listLoad';
                 list:[],//订单列表
                 integralNum:'',//积分数量
                 host:'http://101yi.cn/data/attachment/item/',//图片路径前缀
-              num:''
+                num:''
             }
         },
         created () {
             this.onLoad();
+
         },
-       
+      filters: {
+        // 时间戳转换
+        formats (val) {
+          return  u_format(val * 1000);
+        }
+      },
         methods: {
             onLoad () {
                 this.loading = true;
@@ -183,15 +192,12 @@ import list from '@/components/listLoad/listLoad';
        height: 2.5rem;
        padding: .3rem;
         .bg-size(.5rem,.7rem);
-        font-size: .36rem;
         .num {
             height: .6rem;
-            font-size: .42rem;
         }
         .integral-tab {
             height: .6rem;
             .tab {
-                font-size: .32rem;
                 color: #515151;
                 text-align: center;
                 &.on {
@@ -200,7 +206,6 @@ import list from '@/components/listLoad/listLoad';
             }
         }
         .src {
-            font-size: .3rem;
             color: #9d9d9d;
             width: 2.4rem;
             margin-top: .3rem;
@@ -227,17 +232,14 @@ import list from '@/components/listLoad/listLoad';
                 margin-left: .4rem;
                 .text-info {
                     .title {
-                        font-size: .4rem;
                         color: #1d1d1d;
                         margin-top: .28rem;
                     }
                     .state {
-                        font-size: .32rem;
                         color: #515151;
                         margin-top: .1rem;
                     }
                     .date {
-                        font-size: .32rem;
                         color: @main-cor;
                         margin-top: .3rem;
                         &.off {
@@ -248,7 +250,6 @@ import list from '@/components/listLoad/listLoad';
                 .btn {
                     width: 1.8rem;
                     height: .8rem;
-                    font-size: .32rem;
                     color: #fff;
                     background-color: @main-cor;
                     border-radius: .8rem;
@@ -282,25 +283,21 @@ import list from '@/components/listLoad/listLoad';
            margin: 0 auto;
        }
        h2 {
-           font-size: .32rem;
            color: #353434;
            margin-top: 1.2rem;
            font-weight: bold;
            span {
                color: @main-cor;
                b {
-                   font-size: .5rem;
                }
            }
        }
        h3 {
-           font-size: .32rem;
            font-weight: bold;
            color: @main-cor;
            margin: .3rem 0;
        }
        p {
-           font-size: .28rem;
            color: #333;
            line-height: .4rem;
        }

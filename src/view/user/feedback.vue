@@ -4,11 +4,15 @@
         <pub-head title="意见反馈" :text="text">
         </pub-head>
         <textarea name="" id="" cols="30" rows="10" v-model="feeds" @input="limtLength" maxlength="200" class="feed-back van-hairline"></textarea>
-        <div class="mobil flex">
-            <div class="attr ali-c">手机号：</div>
-            <input type="text" class="value" v-model="mobile">
-        </div>
-        <div class="btn jus-e"> 
+        <!--<div class="mobil flex">-->
+            <!--<span class="attr ali-c">手机号：</span>-->
+            <!--<input type="text" class="value" v-model="mobile">-->
+        <!--</div>-->
+      <div class="mobil ali-c">
+        <span class="num">手机号：</span>
+        <input type="text" class="value"  v-model="mobile">
+      </div>
+        <div class="btn jus-e">
             <div class="feed-sub flexc" @click="submitBack">提交</div>
         </div>
     </div>
@@ -81,7 +85,6 @@ import { u_Reg } from '@/config/utils';
            margin: .72rem auto;
            border: 1px solid #868686;
            padding: .3rem;
-           font-size: .36rem;
            line-height: .48rem;
            // 隐藏右下角三角图标
            resize:none; 
@@ -96,30 +99,47 @@ import { u_Reg } from '@/config/utils';
            height: .7rem;
            background-color: #20223b;
            color: #fff;
-           font-size: .36rem;
            border-radius: .14rem;
            
        }
-        //  手机号
-     .mobil {
-        width: 6rem;
-        height: .7rem;
-        margin-left: 1rem;
-        margin-top: .3rem;
-        .attr {
-            width: 2rem;
-            font-size: .38rem;
-            color: #333;
-        }
-        .value {
-            display: block;
-            margin-left: .3rem;
-            height: 100%;
-            border-radius: .1rem;
-            border: 1px solid #999;
-            padding-left: .2rem;
-            font-size: .34rem;
-        }
+     .mobil{
+       height: .7rem;
+       margin-left: .5rem;
+       margin-top: .3rem;
+       .num{
+         color: #333;
+       }
+       .value{
+         width: 7.2rem;
+         height: 100%;
+         margin-left: .3rem;
+         padding-left: .2rem;
+         border-radius: .1rem;
+         border: 1px solid #999;
+       }
      }
+
+
+        //  手机号
+     /*.mobil {*/
+        /*width: 6rem;*/
+        /*height: .7rem;*/
+        /*margin-left: 1rem;*/
+        /*margin-top: .3rem;*/
+        /*.attr {*/
+            /*width: 3rem;*/
+            /* : .38rem;*/
+            /*color: #333;*/
+        /*}*/
+        /*.value {*/
+            /*display: block;*/
+            /*!*margin-left: .3rem;*!*/
+            /*height: 100%;*/
+            /*border-radius: .1rem;*/
+            /*border: 1px solid #999;*/
+            /*!*padding-left: .2rem;*!*/
+            /* : .34rem;*/
+        /*}*/
+     /*}*/
    }
 </style>

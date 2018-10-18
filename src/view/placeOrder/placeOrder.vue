@@ -347,16 +347,10 @@ import state from '@/store'
                     res => {
                       console.log(res);
                         if(res.err_msg == "get_brand_wcpay_request:ok" ) {
-                          WeixinJSBridge.call('closeWindow')
-                          console.log('支付成功')
                             // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
-                                this.$router.replace({
-                                    path: '/order/detail',
-                                    query: {
-                                        id: this.id,
-                                    }
-                                });
-                        } else if (res.err_msg == "get_brand_wcpay_request:cancel"){
+                          this.$router.replace( '/order/order/3');
+                        } else if (res.err_msg == "get_brand_wcpay_request:fail"){
+                          this.$Tip('支付失败，请重试')
                         }
                     }
 
@@ -378,8 +372,8 @@ import state from '@/store'
        padding: .2rem .76rem .2rem 1.2rem;
         background: url(~@/assets/mycenter-ico4.png) no-repeat .5rem 1.1rem;
         .bg-size(.5rem,.7rem);
-        font-size: .36rem;
         .left {
+          margin-top: .3rem;
              height: 100%;
         }
         .user-infor {
@@ -387,7 +381,7 @@ import state from '@/store'
         }
         .user-adress {
             line-height: .48rem;
-            
+             margin-top: .2rem;
         }
         .img {
             position: absolute;
@@ -399,7 +393,6 @@ import state from '@/store'
         .add-new {
             margin-top: .8rem;
             text-align: center;
-            font-size: .48rem;
         }
         .place-address {
             width: 2.3rem;
@@ -424,26 +417,21 @@ import state from '@/store'
         .text-detail {
             margin-left: .3rem;
             .goods-name {
-                font-size: .3rem;
                 line-height: .42rem;
                 color: #333;
             }
             .goods-type {
                 color: #515151;
-                font-size: .26rem;
                 margin-top: .16rem;
             }
             .price {
-                font-size: .3rem;
                 color: #242323;
             }
             .order-num {
-                font-size: .28rem;
                 margin-top: .2rem;
                 color: #a7a7a7;
                 .price {
                     color: @main-cor;
-                    font-size: .36rem;
                 }
             }
         }
@@ -453,17 +441,14 @@ import state from '@/store'
         padding: 0 .3rem;
         .info {
             height: 1.2rem;
-            font-size: .36rem;
             color: #333;
             span {
                 color: @main-cor;
-                font-size: .36rem;
             }
         }
         .invoice {
             .tab {
                 margin-right: .6rem;
-                font-size: .34rem;
                 color: #333;
                 height: .68rem;
                 &.on {
@@ -478,7 +463,6 @@ import state from '@/store'
             height: 1rem;
             border: 1px solid #ddd;
             padding-left: .3rem;
-            font-size: .34rem;
         }
         
     }
@@ -497,11 +481,9 @@ import state from '@/store'
             z-index: 9;
             padding: 0 .3rem;
             .sum {
-                font-size: .34rem;
                 color: #333;
                 span {
                     color: @main-cor;
-                    font-size: .4rem;
                 }
             }
             .btn {
@@ -510,7 +492,6 @@ import state from '@/store'
                 border-radius: .9rem;
                 background-color: @main-cor;
                 color: #fff;
-                font-size: .38rem;
                 margin-left: .4rem;
             }
         }

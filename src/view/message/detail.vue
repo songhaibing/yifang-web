@@ -4,7 +4,7 @@
         <pub-head title="消息" :text="text">
         </pub-head>
         <h2 class="title">{{detail.title}}</h2>
-        <p class="text">{{detail.info}}</p>
+        <p class="text" v-html="detail.info"></p>
     </div>
 </template>
 
@@ -35,12 +35,10 @@ import head from '@/components/head/head.vue';
 <style lang="less" scoped>
 @import url('../../style/mixin');
     .title {
-        font-size: .48rem;
         text-align: center;
         line-height: 1rem;
     }
     .text {
-        font-size: .4rem;
         color: #333;
         padding: 0 .4rem;
         text-indent: 2em;

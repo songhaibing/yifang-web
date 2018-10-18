@@ -43,14 +43,12 @@ export default {
         background-color: @main-cor;
         .text {
             color: #fff;
-            font-size: .5rem;
            
         }
     }
     .look-my-evaluation {
         width: 4.4rem;
         height: 1.4rem;
-        font-size: .46rem;
         color: @main-cor;
         border: 1px solid @main-cor;
         margin: 2rem auto 0 auto;

@@ -99,7 +99,6 @@ export default {
     methods: {
         jump(id){
           if(this.$route.params.type == 1){
-            console.log(id)
             this.$router.push({
               path: `/collection/detail/${id}`,
             })
@@ -124,7 +123,6 @@ export default {
                 key:localStorage.getItem('access_token'),
                 type:type
             }).then(res=> {
-                console.log(res.data);
                 this.loading = false;
                 // 循环是否选中
                 let nowList = res.data.collect;
@@ -134,7 +132,6 @@ export default {
                 // 判断返回的数据是否为空
                 this.page == 1 && (this.collectionData.length == 0);
                 this.finished = res.data.collect.length < 15;
-                console.log(this.collectionData);
             }) 
         },
         // 管理消息
@@ -162,7 +159,6 @@ export default {
             let leftArr = []; // 剩下的商品数组
             // 区分待删除商品和剩下的商品
             this.collectionData.forEach(item => item.isSelect ? delArr.push(item.id) : leftArr.push(item));
-            console.log(delArr.join(','));
            //提交删除数据
             this.$api.store.delCollect({
                 key:localStorage.getItem('access_token'),
@@ -221,7 +217,6 @@ export default {
         height: 1.2rem;
         background-color: #f2f2f2;
         .tab {
-            font-size: .36rem;
             color: #505050;
             margin-right: .7rem;
             height: .6rem;
@@ -240,7 +235,6 @@ export default {
         }
         .collection-item {
             height: 1.22rem;
-            font-size: .36rem;
             padding-right: .3rem;
             .oneline {
                 width: 5.8rem;
@@ -274,7 +268,6 @@ export default {
             width: 2rem;
             height: .8rem;
             .border-radius(.8rem);
-            font-size: .36rem;
             &.cancel {
                 color: #fff;
                 background-color: #aaa;
@@ -287,7 +280,6 @@ export default {
             }
         }
         .all-check {
-            font-size: .3rem;
             color: #333;
             padding-left: .3rem;
             .all-text {

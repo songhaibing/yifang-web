@@ -11,8 +11,8 @@ import FastClick from 'fastclick' // 引入FastClick
 import NProgress from 'nprogress' //引入nprogress
 import 'nprogress/nprogress.css' //这个样式必须引入
 // import { login} from './api/model/user';
-import { Toast,Popup,Switch,Rate,Uploader,Area,Stepper} from 'vant';
-Vue.use(Toast).use(Popup).use(Switch).use(Rate).use(Uploader).use(Area ).use(Stepper);
+import { Toast,Popup,Switch,Rate,Uploader,Area,Stepper,Dialog} from 'vant';
+Vue.use(Toast).use(Popup).use(Switch).use(Rate).use(Uploader).use(Area ).use(Stepper).use(Dialog);
 
 Vue.config.productionTip = false
 

@@ -2,7 +2,7 @@
     <div class="order">
          <!-- 头部 -->
         <pub-head :text="text" bgColor="#f0eff5" leftColor="#333" title="我的订单">
-            <div class="right-img" ><img src="@/assets/search-ico.png" alt="" class="fill"></div>
+            <!--<div class="right-img" ><img src="@/assets/search-ico.png" alt="" class="fill"></div>-->
         </pub-head>
         <!-- 我的订单tab -->
         <ul class="order-title flex">
@@ -67,8 +67,8 @@
             <!-- 待付款 -->
              <div class="all-btn jus-e ali-c" v-if="order.status == 1">
                  <div class="cancel-order flexc" @click="delOrder(1,order.id,index)">取消订单</div>
-                <div class="del-order flexc" @click="delOrder(2,order.id,index)">删除订单</div>
-                <div class="go-pay flexc" @click="goPay(order.dingdan,order.totalprices)">去支付</div>
+                <!--<div class="del-order flexc" @click="delOrder(2,order.id,index)">删除订单</div>-->
+                <div class="go-pay flexc" @click="goPay(order.dingdan,order.totalprices,order.is_h5)">去支付</div>
             </div>
             <!-- 已取消 -->
              <div class="all-btn jus-e ali-c" v-if="order.status == 6">
@@ -85,6 +85,7 @@
 import head from '@/components/head/head.vue';
 import popop from '@/components/delPopup/delPopup.vue'
 import list from '@/components/listLoad/listLoad';
+import { Dialog } from 'vant';
 export default {
     name:'Order',
     components: {
@@ -227,14 +228,29 @@ export default {
             this.$router.push('/logistics?id='+id);
         },
         // 去支付
-        goPay (orderNumber,orderPrice) {
+        goPay (orderNumber,orderPrice,isH5) {
+          let ua = window.navigator.userAgent.toLowerCase();
+          if(ua.match(/MicroMessenger/i) == 'micromessenger' && isH5==1){
+            Dialog.alert({
+              message: '这不是微信浏览器生成的订单，请到其他浏览器支付'
+            }).then(() => {
+              // on close
+            });
+            return
+          }else if(ua.match(/MicroMessenger/i) != 'micromessenger' && isH5==0 ){
+            Dialog.alert({
+              message: '这是微信浏览器生成的订单，请到微信浏览器支付'
+            }).then(() => {
+              // on close
+            });
+            return
+          }
             // 微信支付函数
             this.$api.order.confirmPay({
                 dingdan: orderNumber,
                 totalprices: orderPrice
             }).then(res => {
               // 微信浏览器走微信公众号支付，非微信浏览器走h5支付
-              let ua = window.navigator.userAgent.toLowerCase();
               if(ua.match(/MicroMessenger/i) == 'micromessenger'){
                 this.awakenWXPay(res.data);
               }else{
@@ -244,7 +260,6 @@ export default {
         },
         // 调起微信支付弹窗
         awakenWXPay (config) {
-            this.loading = true;
             WeixinJSBridge.invoke(
                 'getBrandWCPayRequest', {
                     "appId": config.appId,     //公众号名称，由商户传入
@@ -256,16 +271,10 @@ export default {
                 }, 
                 res => {
                     if(res.err_msg == "get_brand_wcpay_request:ok" ) {
-                        this.loading = false;                            
                         // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
-                            this.$router.replace({
-                                path: '/order/detail',
-                                query: {
-                                    id: this.id,
-                                }
-                            });
-                    } else if (res.err_msg == "get_brand_wcpay_request:cancel"){
-                        this.loading = false;
+                      this.$router.replace( '/order/order/3');
+                    }  else if (res.err_msg == "get_brand_wcpay_request:fail"){
+                      this.$Tip('支付失败，请重试')
                     }
                 }
             );
@@ -297,7 +306,6 @@ export default {
         border-bottom: 1px solid #959595;
         .flex1 {
             height: 1.08rem;
-            font-size: 0.38rem;
         }
         .flex1.on {
             color: @main-cor;
@@ -318,7 +326,6 @@ export default {
         background: #fff;
         .states {
             height: 1rem;
-            font-size: .26rem;
             color: @main-cor;
             padding: 0 .3rem;
         }
@@ -335,16 +342,13 @@ export default {
                 margin-left: .3rem;
                 .goods-name {
                     width: 5.14rem;
-                    font-size: .38rem;
                     line-height: .4rem;
                     color: #333;
                 }
                 .price {
-                    font-size: .4rem;
                     color: #242323;
                 }
                 .order-num {
-                    font-size: .28rem;
                     color: #a7a7a7;
                 }
             }
@@ -352,10 +356,8 @@ export default {
         .order-zum {
             height: 1rem;
             padding: 0 .3rem;
-            font-size: .26rem;
             color: #333;
             span {
-                font-size: .38rem;
             }
         }
         .all-btn {
@@ -367,7 +369,6 @@ export default {
                 height: .78rem;
                 border: 1px solid #d0d0d0;
                 color: #434343;
-                font-size: .32rem;
                 margin-left: .26rem;
                 border-radius: .78rem;
             }

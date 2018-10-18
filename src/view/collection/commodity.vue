@@ -67,6 +67,12 @@
     },
     created () {
       this.id = this.$route.params.id;
+      this.$api.store.cartList({
+        key: localStorage.getItem('access_token')
+      }).then(res => {
+        this.cartCount = res.data.cart.length;
+        (this.cartCount == null || this.cartCount == '0') ? this.carShow = false : this.carShow = true;
+      });
       this.onLoad(this.id);
     },
     methods: {
@@ -76,9 +82,9 @@
           item_id:id
         }).then(res => {
           this.detail = res.data.item;
-          this.cartCount = res.data.cart_count - 0;
+          // this.cartCount = res.data.cart_count - 0;
           // 判断购物车是否有商品
-          (this.cartCount == null || this.cartCount == '0') ? this.carShow = false : this.carShow = true;
+          // (this.cartCount == null || this.cartCount == '0') ? this.carShow = false : this.carShow = true;
           // 判断购物车是否收藏
           res.data.item.collect == '已收藏' ? this.isCollect = true : this.isCollect = false;
         })
@@ -103,11 +109,16 @@
         if(status == 0) {
           this.$Tip('请先绑定手机号');
         }else {
+          this.$api.store.cartList({
+            key: localStorage.getItem('access_token')
+          }).then(res => {
+            this.cartCount = res.data.cart.length
+          });
           this.$api.store.addCart({
             key: localStorage.getItem('access_token'),
             id:this.$route.params.id
           }).then(res => {
-            this.cartCount++ ;
+            // this.cartCount++ ;
             this.$Tip(res.msg);
           })
         }
@@ -204,13 +215,11 @@
       padding: 1rem .6rem;
       text-align: center;
       .title-one {
-        font-size: .38rem;
         line-height: .6rem;
         color: #282828;
         font-weight: bold;
       }
       .title-two {
-        font-size: .42rem;
         color: #282828;
         line-height: .48rem;
         margin-bottom: .5rem;
@@ -219,7 +228,6 @@
         }
       }
       p {
-        font-size: .32rem;
         line-height: .46rem;
         text-align: left;
         color: #323232;
@@ -257,7 +265,6 @@
       height: 1rem;
       .goods-info {
         width: 4.6rem;
-        font-size:.36rem;
         color: #252525;
         // .sold {}
         .stock {
@@ -281,7 +288,6 @@
       .btn {
         width: 5.36rem;
         height: .8rem;
-        font-size: .34rem;
         color: #fff;
 
         .add-car {

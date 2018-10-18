@@ -255,14 +255,12 @@ import { u_fixed } from '@/config/utils'
             height: 2.5rem;
             margin-left: .3rem;
             .title {
-                font-size: .36rem;
                 color: #333;
                 margin-top: .2rem;
             }
             .goods-num {
                 margin-top: .8rem;
                 .price {
-                    font-size: .42rem;
                     color: #333;
                 }
                 .goods-number {
@@ -286,12 +284,10 @@ import { u_fixed } from '@/config/utils'
                 .van-stepper /deep/ .van-stepper__input {
                     width: .5rem;
                     height: .36rem;
-                    font-size: .32rem;
                     color: #333;
                     background-color: transparent;
                 }
                 .overdue {
-                    font-size: .32rem;
                     color: #999;
                     margin-right: .3rem;
                 }
@@ -309,7 +305,6 @@ import { u_fixed } from '@/config/utils'
             width: 2rem;
             height: .8rem;
             .border-radius(.8rem);
-            font-size: .36rem;
             &.cancel {
                 color: #fff;
                 background-color: #aaa;
@@ -322,7 +317,6 @@ import { u_fixed } from '@/config/utils'
             }
         }
         .all-check {
-            font-size: .3rem;
             color: #333;
             padding-left: .3rem;
             .all-text {
@@ -330,7 +324,6 @@ import { u_fixed } from '@/config/utils'
             }
         }
         .shop-sum {
-            font-size: .36rem;
             span {
                 color: @main-cor;
             }

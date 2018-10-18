@@ -10,13 +10,13 @@
                 <div class="img"><img src="@/assets/user-menu-next.png" alt="" class="fill-auto"></div>
             </router-link>
             <!-- 退出登录 -->
-            <!-- <div class="van-hairline--bottom jus-b ali-c set-up" @click="exitLogon">
+             <div class="van-hairline--bottom jus-b ali-c set-up" @click="exitLogon">
                 <div class="ali-c">退出登录</div>
                 <div class="img"><img src="@/assets/user-menu-next.png" alt="" class="fill-auto"></div>
-            </div> -->
+            </div>
         </div>
         <!-- 退出登录弹框提示 -->
-        <popop :isShow="isShow" cancel="取消" sure="确认退出" :onCancel="cancel" :onSure="cancel"></popop>
+        <popop :isShow="isShow" cancel="取消" sure="确认退出" :onCancel="cancel" :onSure="sure"></popop>
     </div>
 </template>
 
@@ -43,7 +43,16 @@ import popop from '@/components/delPopup/delPopup.vue'
             // 取消退出
             cancel () {
                 this.isShow = false;
-            }
+            },
+          //确认退出
+          sure(){
+            this.isShow = false;
+            this.$api.user.signOut({}).then(res=>{
+              localStorage.clear();
+              sessionStorage.clear();
+              this.$router.push('/');
+            })
+          }
         }
     }
 </script>
@@ -57,7 +66,6 @@ import popop from '@/components/delPopup/delPopup.vue'
             .set-up {
                 height: 1.22rem;
                 padding: 0 .3rem;
-                font-size: .38rem; 
                 color: #0d0d0d;
                 .img {
                     width: .2rem;

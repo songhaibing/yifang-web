@@ -286,14 +286,13 @@ export default {
         background-color: #fff;
         border-radius: 0.08rem;
         color: #333;
-        font-size: 0.4rem;
+
         text-align: center;
         line-height: 1.1rem;
     }
     .edit-address {
         height: 1.22rem;
         padding: 0 .3rem;
-        font-size: .32rem; 
         color: #0d0d0d;
         background-color: #fff;
         .user {
@@ -311,7 +310,7 @@ export default {
     .full-address {
         height: 1.8rem;
         padding: .3rem;
-        font-size: .38rem;
+
         color: #7f7f7f;
         .detail {
             color: #333;
@@ -325,18 +324,17 @@ export default {
     // 设置默认
     .info {
         height: 1.2rem;
-        font-size: .36rem;
+
         color: #333;
         padding: 0 .3rem;
         span {
             color: @main-cor;
-            font-size: .36rem;
         }
     }
     .invoice {
         .tab {
             margin-right: .6rem;
-            font-size: .34rem;
+
             color: #333;
             height: .68rem;
             &.on {
@@ -347,7 +345,7 @@ export default {
     .del {
         height: 1rem;
         padding-left: .3rem;
-        font-size: .36rem;
+
         color: @main-cor;
     }
     // 修改地址弹出框
@@ -366,7 +364,7 @@ export default {
             height: 1rem;
             margin: 1rem auto;
             background-color: #fff;
-            font-size: .3rem;
+
             color: #555;
             padding-left: .3rem;
             .border-radius(.16rem);
@@ -377,7 +375,6 @@ export default {
             margin: 0 auto;
             .flexc {
                 width: 2.6rem;
-                font-size: .3rem;
                 color: #fff;
                 .border-radius(.16rem);
                 &.cancel {

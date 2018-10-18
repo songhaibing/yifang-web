@@ -2,9 +2,8 @@
     <div class="message">
         <!-- 头部 -->
         <pub-head title="消息"  rightSize=".3rem" rightColor="#505050" :text="text">
-            <div @click="adminMessage">管理</div>
+            <div @click="adminMessage" style="  : 0.36rem;">管理</div>
         </pub-head>
-
         <!-- 消息列表 -->
         <div class="message-list">
             <list
@@ -16,7 +15,7 @@
                 @load="onLoad"
             >
                 <div class="van-hairline--bottom jus-b ali-c message-item" v-for="(items,index) in list" :key="index">
-                    <div class="flex ali-c">
+                    <div class="flex ali-c message">
                         <div class="time">{{items.add_time|formats}}</div>
                         <!-- 未读标记 -->
                         <div class="unread" v-if="items.status == 0"></div>
@@ -77,13 +76,13 @@ export default {
         }
         this.$route.meta.isUseCache = false;
     },
-    beforeRouteLeave (to, from, next) {
-        // 如果前往商品详情或者店铺详情则缓存数据
-        if (to.name === 'MessageDetail') {
-            from.meta.isUseCache = true;
-        }
-        next();
-    },
+    // beforeRouteLeave (to, from, next) {
+    //     // 如果前往商品详情或者店铺详情则缓存数据
+    //     if (to.name === 'MessageDetail') {
+    //         from.meta.isUseCache = true;
+    //     }
+    //     next();
+    // },
     filters: {
         // 时间戳转换
         formats (val) {
@@ -180,8 +179,10 @@ export default {
         margin-top: .36rem;
         .message-item {
             height: 1.22rem;
-            padding: 0 .3rem;
-            font-size: .36rem;
+            padding: 0 .4rem 0 0;
+          .message{
+            padding-left: .25rem;
+          }
             .time {
                 width: 2.4rem;
                 color: #575757;
@@ -190,14 +191,17 @@ export default {
                 // width: 100%;
             }
             .oneline {
-                width: 5.8rem;
+                width: 5rem;
                 color: #0d0d0d;
                 margin-left: .2rem;
+               overflow: hidden;
+               white-space: nowrap;
+               text-overflow: ellipsis;
             }
             .unread {
                 width: .28rem;
                 height: .28rem;
-                margin-left: .4rem;
+                margin-left: .2rem;
                 .border-radius(.28rem);
                 background-color: @main-cor;
             }
@@ -225,6 +229,7 @@ export default {
         .btn {
             width: 2rem;
             height: .8rem;
+          .border-radius(.8rem);
             .border-radius(.8rem);
             &.cancel {
                 color: #333;
@@ -233,8 +238,7 @@ export default {
             &.del {
                 color: #fff;
                 background-color: @main-cor;
-                border: 2px solid #fff;
-                margin-left: .26rem; 
+                margin-left: .26rem;
                 margin-right: .48rem;
             }
         }

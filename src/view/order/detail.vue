@@ -277,11 +277,9 @@ export default {
                 color: #fff;
                 margin-left: .8rem;
                 .words {
-                    font-size: .5rem;
                     line-height: 1rem;
                 }
                 .times {
-                    font-size: .24rem;
                     line-height: .6rem;
                 }
             }
@@ -290,7 +288,6 @@ export default {
         .logistics {
             height: 1.36rem;
             padding: 0 .3rem;
-            font-size: .32rem; 
             color: #3d3d3d;
             .car-img {
                 width: .7rem;
@@ -310,7 +307,6 @@ export default {
             padding: .2rem .46rem .2rem 1.42rem;
             background: url(~@/assets/mycenter-ico4.png) no-repeat .5rem center;
             .bg-size(.5rem,.7rem);
-            font-size: .36rem;
             .user-infor {
                 height: .8rem;
             }
@@ -321,7 +317,6 @@ export default {
         // 发票信息
         .invoice {
             padding: 0.2rem .4rem;
-            font-size: .42rem;
             color: #333;
             .ali-c {
                 height: .6rem;
@@ -341,16 +336,13 @@ export default {
                 margin-left: .3rem;
                 .goods-name {
                     width: 5.14rem;
-                    font-size: .26rem;
                     line-height: .4rem;
                     color: #333;
                 }
                 .price {
-                    font-size: .3rem;
                     color: #242323;
                 }
                 .order-num {
-                    font-size: .28rem;
                     color: #a7a7a7;
                 }
             }
@@ -358,7 +350,6 @@ export default {
         // 商品总价
         .price-zum {
             padding: 0.2rem .4rem;
-            font-size: .36rem;
             color: #828282;
             .ali-c {
                 height: .6rem;
@@ -366,7 +357,6 @@ export default {
         }
         .order-num {
             padding: 0.2rem .4rem;
-            font-size: .48rem;
             color: #141414;
             .ali-c {
                 height: 1rem;
@@ -374,7 +364,6 @@ export default {
         }
         .order-foot-infor {
              padding: 0.2rem .4rem;
-             font-size: .34rem;
              color: #828282;
              line-height: .6rem;
         }
@@ -395,7 +384,6 @@ export default {
                 height: .78rem;
                 border: 1px solid #d0d0d0;
                 color: #434343;
-                font-size: .32rem;
                 margin-left: .26rem;
                 border-radius: .78rem;
             }

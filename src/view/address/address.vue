@@ -84,17 +84,17 @@ export default {
             .info {
                 height: .7rem;
                 .name {
-                    font-size: .42rem;
+
                 }
                 .phone {
                     height: 100%;
-                    font-size: .28rem;
+
                     color: #b3b4b6;
                     margin-left: .4rem;
                 }
             }
             .map {
-                font-size: .36rem;
+
                 line-height: .5rem;
                 // 默认
                 span {
@@ -113,7 +113,7 @@ export default {
             width: 1.28rem;
             height: .7rem;
             color: #b4b5b7;
-            font-size: .42rem;
+
         }
     }
 </style>

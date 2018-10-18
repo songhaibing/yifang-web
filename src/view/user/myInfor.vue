@@ -197,7 +197,6 @@ export default {
     .infor {
         width: 100%;
         height: 1.38rem;
-        font-size: .36rem;
         color: #0d0d0d;
         padding: 0 .4rem;
         .name {
@@ -232,7 +231,6 @@ export default {
             height: 1rem;
             margin: 1rem auto;
             background-color: #fff;
-            font-size: .36rem;
             color: #555;
             padding-left: .3rem;
             .border-radius(.16rem);
@@ -243,7 +241,6 @@ export default {
             margin: 0 auto;
             .flexc {
                 width: 2.6rem;
-                font-size: .36rem;
                 color: #fff;
                 .border-radius(.16rem);
                 &.cancel {
@@ -261,7 +258,6 @@ export default {
         width: 9.2rem;
         margin: .4rem auto;
         height: 4rem;
-        font-size: .36rem;
         color: #252525;
         .img-box {
             width: 100%;

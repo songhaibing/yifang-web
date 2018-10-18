@@ -63,6 +63,10 @@ const user = {
     bindPhone (params) {        
         return axios.post(`${base.portSRC}/app.php?m=App&c=index&a=login`, qs.stringify(params));
     },
+  // 退出登录
+  signOut(){
+    return axios.get(`${base.portSRC}/app.php?m=App&c=Index&a=quit`);
+  },
   //注册
   registered (params) {
     return axios.post(`${base.portSRC}/app.php?m=App&c=index&a=reg`, qs.stringify(params));
