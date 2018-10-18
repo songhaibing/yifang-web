@@ -53,7 +53,7 @@ export default {
         // 右边文字尺寸
         rightSize: {
             type: String,
-            default: '0.26rem'
+            default: '0.3rem'
         },
         // 右边文字颜色
         rightColor: {

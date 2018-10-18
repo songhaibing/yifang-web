@@ -5,8 +5,8 @@
  **/
 export const u_formatTimestamp = (times) => {
     var date = new Date(times);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-            var Y = date.getFullYear() + '-';
-            var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+            var Y = date.getFullYear() + '.';
+            var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '.';
             var D = date.getDate() + ' ';
             var t = date.getHours() + ':';
             var m = date.getMinutes() + ':';
@@ -17,8 +17,8 @@ export const u_formatTimestamp = (times) => {
 
 export const u_format = (times) => {
     var date = new Date(times);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-            var Y = date.getFullYear() + '-';
-            var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+            var Y = date.getFullYear() + '.';
+            var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '.';
             var D = date.getDate() + '';
 
             return Y+M+D;
@@ -56,4 +56,3 @@ export const u_Reg = (val, type) => {
 export const u_fixed = (val, n = 2) => {
     return (val - 0).toFixed(n);
 }
-    

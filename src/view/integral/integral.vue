@@ -11,7 +11,10 @@
                     <div class="tab flex1" v-for="(text,index) in integralText" :key="index" :class="{on:nowindex == text.type}" @click="tabchange(index,text.type)">{{text.title}}</div>
                 </div>
             </div>
-            <div class="src" @click="gain">积分获取途径</div>
+            <div class="src ali-c" @click="gain">
+              <span>积分获取途径</span>
+              <img src="@/assets/integral-ico.png" class="img">
+            </div>
         </div>
         
         <div class="address-foot"></div>
@@ -207,10 +210,13 @@ import { u_format } from '@/config/utils'
         }
         .src {
             color: #9d9d9d;
-            width: 2.4rem;
+            width: 4rem;
             margin-top: .3rem;
-            background: url(~@/assets/integral-ico.png) no-repeat right center;
-            .bg-size(.34rem,.34rem);
+            .img{
+              margin-left: .1rem;
+              width: .34rem;
+              height: .34rem;
+            }
         }
     }
     .address-foot {
