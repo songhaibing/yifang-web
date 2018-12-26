@@ -36,14 +36,6 @@
       <router-link :to="'/relatedRead/'+xqId"  class="relevant-article" v-if="this.$route.params.id != 265">
         <div class="flexc article-xq">相关阅读</div>
       </router-link>
-        <!--<div class="relevant-article" v-if="this.$route.params.id != 265">-->
-            <!--<div class="flexc article-xq">相关阅读</div>-->
-            <!--&lt;!&ndash;<h2 class="title">{{relevant.title}}</h2>&ndash;&gt;-->
-            <!--&lt;!&ndash;<span class="author">{{relevant.author}}</span>&ndash;&gt;-->
-            <!--&lt;!&ndash;<div class="img"><img :src="relevant.img" alt="" class="fill"></div>&ndash;&gt;-->
-            <!--&lt;!&ndash;<p class="content chinese twoline" v-html="xqInfo"></p>  &ndash;&gt;-->
-            <!--&lt;!&ndash; <p class="content english van-hairline&#45;&#45;bottom">{{relevant.en_intro}}</p>   &ndash;&gt;-->
-        <!--</div>    -->
         <!-- 产品信息     -->
         <router-link to="/store/store" class="goods-img"><img src="@/assets/goods-list.jpg" alt=""></router-link>
     </div>  

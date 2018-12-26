@@ -107,7 +107,6 @@ export default {
     },
     created () {
         this.type = this.$route.query.type;
-        
         if(this.type == 2) {
             this.$Loading('加载中');
             this.$api.store.editAddress({
