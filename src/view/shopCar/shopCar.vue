@@ -6,18 +6,19 @@
         </pub-head>
        <ul class="shop-car-list">
            <li class="goods ali-c flex" v-for="(item,index) in cartData" :key="index" @click="closeShop(index)">
+             {{item.isSelect}}
                <div class="cir-ico" :class="{on:item.isSelect}"  v-if="item.status == 1"></div>
                <div class="goods-img"><img :src="host+item.img" alt="" class="fill"></div>
                <div class="goods-text flex1">
                    <div class="title">{{item.title}}</div>
                    <div class="jus-b goods-num">
                        <div class="price">￥{{item.price}}</div>
-                       <van-stepper  
-                            v-if="item.status == 1" 
+                       <van-stepper
+                            v-if="item.status == 1"
                             class="number-box ali-c"
                             v-model="item.nums"
                             :disable-input="true"
-                            @plus="addReduce(1,index,item.id)" 
+                            @plus="addReduce(1,index,item.id)"
                             @minus="addReduce(2,index,item.id)"
                             @overlimit="overLimit(item.nums)"
                         />
@@ -158,7 +159,7 @@ import { u_fixed } from '@/config/utils'
                     type: type,
                     cart_id: id
                 }).then((res)=>{
-                    
+
                 }).catch(err => {
                     // 增加或者减少数量操作失败时，恢复原来数量
                     // 增加
@@ -189,6 +190,7 @@ import { u_fixed } from '@/config/utils'
             closeShop(index) {
                 // 选中或者取消选中
                 this.cartData[index].isSelect = !this.cartData[index].isSelect;
+                console.log(this.cartData)
                 // 判断是否选中所有商品
                 this.isSelectAll = this.checkIsSelectAll();
             },
@@ -312,7 +314,7 @@ import { u_fixed } from '@/config/utils'
             &.del {
                 color: #fff;
                 background-color: @main-cor;
-                margin-left: .26rem; 
+                margin-left: .26rem;
                 margin-right: .48rem;
             }
         }
