@@ -1,6 +1,6 @@
 <template>
 <div>
-  <main-header :headerName="headerName"></main-header>
+  <main-header :headerName="headerName" :show="isShow"></main-header>
   <div  class="img" >
     <div class="wage-contain">
       <span class="wage-font">2019年03月工资</span>
@@ -44,6 +44,7 @@
         components: {MainHeader},
         data(){
           return{
+            isShow:true,
             headerName:'工资单'
           }
         },

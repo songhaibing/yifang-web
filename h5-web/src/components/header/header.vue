@@ -1,7 +1,7 @@
 <template>
   <div class="header-contain">
-    <img class="left" @click="goBack" src="@/assets/personal-center/left.svg">
-    <div class="header-font">{{headerName}}</div>
+    <img class="left" v-show="show" @click="goBack" src="@/assets/personal-center/left.svg">
+    <div class="header-font" :class="!show?'rightClass':''">{{headerName}}</div>
   </div>
 </template>
 
@@ -13,7 +13,7 @@
         this.$router.go(-1)
       }
     },
-    props:["headerName"]
+    props:["headerName","show"]
 
   }
 </script>
@@ -33,6 +33,9 @@
     .header-font{
       padding-left: 2.5rem;
       font-size:.34rem;
+    }
+    .rightClass{
+      padding-left: 3rem;
     }
   }
 
