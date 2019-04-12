@@ -50,11 +50,17 @@ export default new Router({
       name: 'leave-approval',
       component: resolve => require(['@/view/main/message/leave-approval/leave-approval'], resolve),
     },
-    //请假审批
+    //审批结果
     {
       path: '/approval-results',
       name: 'approval-results',
       component: resolve => require(['@/view/main/message/approval-results/approval-results'], resolve),
+    },
+    //点名
+    {
+      path: '/call-name',
+      name: 'call-name',
+      component: resolve => require(['@/view/main/academic-center/call-name/call-name'], resolve),
     },
   ]
 });
