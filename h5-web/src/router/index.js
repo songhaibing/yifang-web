@@ -43,6 +43,18 @@ export default new Router({
       path:'/payroll-details',
       name:'payroll-details',
       component: resolve => require(['@/view/main/personal-center/payroll/payroll-details/payroll-details'], resolve)
-    }
+    },
+    //请假审批
+    {
+      path: '/leave-approval',
+      name: 'leave-approval',
+      component: resolve => require(['@/view/main/message/leave-approval/leave-approval'], resolve),
+    },
+    //请假审批
+    {
+      path: '/approval-results',
+      name: 'approval-results',
+      component: resolve => require(['@/view/main/message/approval-results/approval-results'], resolve),
+    },
   ]
 });

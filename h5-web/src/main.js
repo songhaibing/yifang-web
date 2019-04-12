@@ -9,8 +9,8 @@ import API from './lib/api';
 import DES from './lib/des';
 import './config/rem';
 import './style/reset.less';
-import { Button, Row, Col, Swipe, SwipeItem, Lazyload, Field, NavBar, Toast } from 'vant';
-[Button, Row, Col, Swipe, SwipeItem, Lazyload, Field, NavBar, Toast].map(item => {
+import { Button, Row, Col, Swipe, SwipeItem, Lazyload, Field, NavBar, Toast,Popup } from 'vant';
+[Button, Row, Col, Swipe, SwipeItem, Lazyload, Field, NavBar, Toast,Popup].map(item => {
   Vue.use(item);
 });
 Vue.config.productionTip = false;
