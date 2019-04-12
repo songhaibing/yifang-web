@@ -53,10 +53,13 @@
 </script>
 
 <style lang="less" scoped>
+  body{
+    overflow-y:hidden;
+  }
   .leave-content {
     margin-top: 0.7rem;
     background: white;
-    height: 12.64rem;
+    height: 96vh;
     padding: 0.7rem 0.5rem 0 0.5rem;
     .teacher-name {
       font-weight: 700;
@@ -79,7 +82,7 @@
       top: 1rem;
       left: 5.6rem;
       .approve_font {
-        margin-top: -1.1rem;
+        margin-top: -1.25rem;
         margin-left: 0.2rem;
         font-family: "PingFang-SC-Bold", "PingFang SC Bold", "PingFang SC";
         font-weight: 700;
