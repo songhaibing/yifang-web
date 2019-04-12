@@ -58,7 +58,8 @@
             ],
             headerName:'请假审批',
             isShow:true,
-            show:false
+            show:false,
+            isApprove:''
           }
       },
       methods:{
@@ -67,15 +68,20 @@
           this.$router.push(
             {
             path:'/approval-results',
-              query:{title:title}
+              query:{
+                title:title,
+                isApprove:this.isApprove
+            }
             }
             )
         },
         approveModel(){
-          this.show=true
+          this.show=true;
+          this.isApprove=true
         },
         refuseModel(){
           this.show=true
+          this.isApprove=false
         }
       }
     }
