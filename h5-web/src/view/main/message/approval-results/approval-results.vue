@@ -1,30 +1,29 @@
 <template>
   <div>
     <main-header :header-name="headerName" :show="isShow" style="background-color: rgba(241, 241, 241, 1)"></main-header>
-    <div class="leave-content">
-      <img src="@/assets/kuang.svg">
-      <div style="position: absolute;top:1.5rem;left:1rem">
+      <div class="leave-content">
+        <img src="@/assets/kuang.svg">
+        <div style="position: absolute;top:2.2rem;left:1rem">
         <span class="teacher-name">
-        周小星
+        周小星同学，请假申请被{{approve}}
       </span>
-        <span class="teacher-des" >同学，请假申请已审批</span>
-        <div class="content_contain">内容如下：</div>
-        <div class="leave-font">请假人：周小星</div>
-        <div class="leave-font">请假事由：病假</div>
-        <div class="leave-font">请假时间：2019.3.26-2019.3.28</div>
-        <div class="leave-font">请假时长：3天</div>
-        <div class="leave-font">提交时间：2018.3.25 18:00</div>
-        <div class="leave-font">请假发起人：周小星家长</div>
-        <div class="content_contain">批假寄语：</div>
-        <div class="leave-font">{{title}}</div>
-      </div>
+          <div class="content_contain">内容如下：</div>
+          <div class="leave-font">请假人：周小星</div>
+          <div class="leave-font">请假事由：病假</div>
+          <div class="leave-font">请假时间：2019.3.26-2019.3.28</div>
+          <div class="leave-font">请假时长：3天</div>
+          <div class="leave-font">提交时间：2018.3.25 18:00</div>
+          <div class="leave-font">请假发起人：周小星家长</div>
+          <div class="content_contain">批假寄语：</div>
+          <div class="leave-font">{{title}}</div>
+        </div>
 
-      <div class="img-contain">
-        <img src="@/assets/pizhun.svg">
-        <div class="approve_font">批准</div>
+        <div class="img-contain">
+          <img src="@/assets/pizhun.svg">
+          <div class="approve_font">{{approve}}</div>
+        </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -42,17 +41,25 @@
             isShow:true,
             title:''
           }
+      },
+      computed:{
+          approve(){
+            if(this.$route.query.isApprove===true){
+              return '批准'
+            }else{
+              return '拒绝'
+            }
+          }
       }
     }
 </script>
 
 <style lang="less" scoped>
   .leave-content{
-    position: relative;
-    background: white;
-    height: 100vh;
     margin-top: .7rem;
-    padding: .7rem .5rem .7rem .5rem;
+    background: white;
+    height: 12.64rem;
+    padding: .7rem .5rem 0 .5rem;
     .teacher-name{
       font-weight:700;
     }
@@ -71,7 +78,7 @@
     }
     .img-contain{
       position: absolute;
-      top:.3rem;
+      top:1rem;
       left:5.6rem;
       .approve_font{
         margin-top: -1.1rem;

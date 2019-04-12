@@ -10,21 +10,21 @@
       <span class="button-des" @click="viewDetail">查看明细</span>
     </div>
   </div>
-  <div class="card-contain">
+  <div class="card-contain" @click="toDetail">
         <div class="wage_font">2019年02月工资</div>
         <div>
           <span class="wage_num">¥4583.55</span>
           <img src="@/assets/personal-center/payroll-right.svg">
         </div>
   </div>
-  <div class="card-contain">
+  <div class="card-contain"  @click="toDetail">
     <div class="wage_font">2019年02月工资</div>
     <div>
       <span class="wage_num">¥4583.55</span>
       <img src="@/assets/personal-center/payroll-right.svg">
     </div>
   </div>
-  <div class="card-contain">
+  <div class="card-contain"  @click="toDetail">
     <div class="wage_font">2019年02月工资</div>
     <div>
       <span class="wage_num">¥4583.55</span>
@@ -50,6 +50,9 @@
         },
       methods:{
         viewDetail(){
+          this.$router.push('/payroll-details')
+        },
+        toDetail(){
           this.$router.push('/payroll-details')
         }
       }
