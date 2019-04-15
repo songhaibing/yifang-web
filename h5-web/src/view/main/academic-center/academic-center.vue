@@ -10,7 +10,7 @@
         <div class="header-font">审批</div>
       </div>
       <div class="img-contain">
-        <img src="@/assets/tz.svg">
+        <img src="@/assets/tz.svg" @click="toNotify">
         <div class="header-font">通知家长</div>
       </div>
       <div class="img-contain">
@@ -27,6 +27,9 @@
     methods: {
       toCallName() {
         this.$router.push("/call-name");
+      },
+      toNotify(){
+        this.$router.push("/notify-parents");
       }
     }
   };

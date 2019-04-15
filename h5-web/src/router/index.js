@@ -62,5 +62,11 @@ export default new Router({
       name: 'call-name',
       component: resolve => require(['@/view/main/academic-center/call-name/call-name'], resolve),
     },
+    //通知家长
+    {
+      path: '/notify-parents',
+      name: 'notify-parents',
+      component: resolve => require(['@/view/main/academic-center/notify-parents/notify-parents'], resolve),
+    },
   ]
 });
